@@ -2249,10 +2249,9 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 
                 break;
             case ProtocolInfo::ADVENTURE_SETTINGS_PACKET:
-                //TODO: player abilities, check for other changes
-                if ($packet->isFlying and !$this->allowFlight and $this->server->antiFly) {
+                $isHacker = ($this->server->antiFly === true && $this->allowFlight === false && ($packet->flags >> 9) & 0x01 === 1) || (!$this->isSpectator() && ($packet->flags >> 7) & 0x01 === 1);
+                if ($isHacker) {
                     $this->kick("Flying is not enabled on this server");
-                    break;
                 } else {
                     $this->server->getPluginManager()->callEvent($ev = new PlayerToggleFlightEvent($this, $packet->isFlying));
                     if ($ev->isCancelled()) {
@@ -2260,7 +2259,6 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
                     } else {
                         $this->flying = $ev->isFlying();
                     }
-                    break;
                 }
                 break;
             case ProtocolInfo::MOB_EQUIPMENT_PACKET:
