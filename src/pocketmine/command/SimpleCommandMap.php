@@ -163,7 +163,7 @@ class SimpleCommandMap implements CommandMap
         $this->register("pocketmine", new ExtractPharCommand("unphar"));
         $this->register("pocketmine", new ExtractPharCommand("extractphar"));
 
-        if ($this->server->getAdvancedProperty("developer.eval") == true) {
+        if ($this->server->eval == true) {
             $this->server->getLogger()->developer("eval command available!");
             $this->register("pocketmine", new EvalCodeCommand("eval"));
         }

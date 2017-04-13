@@ -28,6 +28,7 @@ class EvalCodeCommand extends VanillaCommand
             $sender->sendMessage(TextFormat::RED . "Usage: " . $this->usageMessage);
             return true;
         }
+
         if (isset($args[0])) {
             $code = implode(" ", $args);
             ob_start();

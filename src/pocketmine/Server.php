@@ -297,6 +297,7 @@ class Server
     public $antiFly = true;
     public $allowInstabreak = false;
     public $folderpluginloader = false;
+    public $eval = false;
 
     /**
      * @return string
@@ -1560,6 +1561,7 @@ class Server
         $this->allowInstabreak = $this->getAdvancedProperty("anticheat.allow-instabreak", true);
         $this->antiFly = $this->getAdvancedProperty("anticheat.anti-fly", true);
         $this->folderpluginloader = $this->getAdvancedProperty("developer.folder-plugin-loader", false);
+        $this->eval = $this->getAdvancedProperty("developer.eval", false);
     }
 
     /**
