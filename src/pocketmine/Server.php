@@ -298,6 +298,8 @@ class Server
     public $allowInstabreak = false;
     public $folderpluginloader = false;
     public $eval = false;
+    public $forceResources = false;
+    public $resourceStack = [];
 
     /**
      * @return string
@@ -1562,6 +1564,8 @@ class Server
         $this->antiFly = $this->getAdvancedProperty("anticheat.anti-fly", true);
         $this->folderpluginloader = $this->getAdvancedProperty("developer.folder-plugin-loader", false);
         $this->eval = $this->getAdvancedProperty("developer.eval", false);
+        $this->forceResources = $this->getAdvancedProperty("packs.force-resources", false);
+        $this->resourceStack = $this->getAdvancedProperty("packs.resource-stack", []);
     }
 
     /**

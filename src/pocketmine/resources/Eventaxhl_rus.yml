@@ -73,6 +73,10 @@ developer:
   folder-plugin-loader: true
   eval: false
 
+packs:
+  force-resources: false
+  resource-stack: []
+
 server:
  #Этот параметр определяет, будет ли файл server.log не создаваться и не записываться.
  #Для экономии места на жестком диске рекомендуется установить "true"

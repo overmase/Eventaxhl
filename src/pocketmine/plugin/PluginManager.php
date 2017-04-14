@@ -243,10 +243,10 @@ class PluginManager
                             }
 
 
-                            if ($compatible === false) {
+                            /*if ($compatible === false) {
                                 $this->server->getLogger()->error($this->server->getLanguage()->translateString("pocketmine.plugin.loadError", [$name, "%pocketmine.plugin.incompatibleAPI"]));
                                 continue;
-                            }
+                            }*/
 
                             $plugins[$name] = $file;
 
