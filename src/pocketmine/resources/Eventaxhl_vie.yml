@@ -54,6 +54,7 @@ player:
  keep-experience: false
  #Nếu người chơi vào game bị crash, đặt nó là 10. Hủy chế độ=-1
  chunk-radius: -1
+ custom_json_commands: false
  
 anticheat:
  check-movement: true

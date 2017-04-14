@@ -62,6 +62,7 @@ player:
  #Tama voi aiheuttaa viivetta, jos asetettu korkeat arvot, jos kaytossa ilmenee kaatumisia, laita se alle 10
  #Myos poistaa kaytosta asettamalla "-1" arvo
  chunk-radius: -1
+ custom_json_commands: false
  
 anticheat:
  check-movement: true

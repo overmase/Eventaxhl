@@ -54,6 +54,7 @@ player:
  keep-experience: false
  #如果玩家進入遊戲時崩潰, 請設置該值低於10. 禁用 = -1
  chunk-radius: -1
+ custom_json_commands: false
  
 anticheat:
  check-movement: true

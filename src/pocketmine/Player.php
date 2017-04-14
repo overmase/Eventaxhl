@@ -132,7 +132,6 @@ use pocketmine\network\protocol\PlayerActionPacket;
 use pocketmine\network\protocol\PlayStatusPacket;
 use pocketmine\network\protocol\ResourcePacksInfoPacket;
 use pocketmine\network\protocol\RespawnPacket;
-use pocketmine\network\protocol\SetEntityMotionPacket;
 use pocketmine\network\protocol\SetSpawnPositionPacket;
 use pocketmine\network\protocol\SetTimePacket;
 use pocketmine\network\protocol\SetTitlePacket;
@@ -642,19 +641,23 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 
     public function sendCommandData()
     {
-        $data = new \stdClass();
-        $count = 0;
-        foreach ($this->server->getCommandMap()->getCommands() as $command) {
-            if (($cmdData = $command->generateCustomCommandData($this)) !== null) {
-                ++$count;
-                $data->{$command->getName()}->versions[0] = $cmdData;
+        if ($this->server->json_cmd == false) {
+            $data = new \stdClass();
+            $count = 0;
+            foreach ($this->server->getCommandMap()->getCommands() as $command) {
+                if (($cmdData = $command->generateCustomCommandData($this)) !== null) {
+                    ++$count;
+                    $data->{$command->getName()}->versions[0] = $cmdData;
+                }
             }
-        }
-
-        if ($count > 0) {
-            //TODO: structure checking
+            if ($count > 0) {
+                $pk = new AvailableCommandsPacket();
+                $pk->commands = json_encode($data);
+                $this->dataPacket($pk);
+            }
+        } else {
             $pk = new AvailableCommandsPacket();
-            $pk->commands = json_encode($data);
+            $pk->commands = @file_get_contents($this->server->getDataPath() . "commands.json");
             $this->dataPacket($pk);
         }
     }
@@ -1677,7 +1680,6 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
         if (parent::setMotion($mot)) {
             if ($this->chunk !== null) {
                 $this->level->addEntityMotion($this->chunk->getX(), $this->chunk->getZ(), $this->getId(), $this->motionX, $this->motionY, $this->motionZ);
-                $pk = new SetEntityMotionPacket();
             }
 
             if ($this->motionY > 0) {
@@ -2198,7 +2200,7 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
                         $nameReason = "он не должен содержать пробелов!";
                     } elseif ($c === ord(".")) {
                         $nameReason = "он не должен содержать точек!";
-                    } elseif (preg_match("/^[а-я]+$/i", ord($c))) {
+                    } elseif (preg_match("/[а-яА-ЯёЁ]/", ord($c))) {
                         $nameReason = "он не должен содержать русских букв!";
                     }
                     $valid = false;
@@ -2220,7 +2222,6 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
                 $this->server->getPluginManager()->callEvent($ev = new PlayerPreLoginEvent($this, "Plugin reason"));
                 if ($ev->isCancelled()) {
                     $this->close("", $ev->getKickMessage());
-
                     break;
                 }
 
@@ -2435,7 +2436,7 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
                                 }
                                 break;
                             }
-
+                            break;
                         case Item::ENDER_PEARL:
                             if (floor(($time = microtime(true)) - $this->lastEnderPearlUse) >= 1) {
                                 $f = 1.1;
@@ -2632,7 +2633,7 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
                         $this->setGliding(false);
 
                         $this->extinguish();
-                        $this->setDataProperty(self::DATA_AIR, self::DATA_TYPE_SHORT, 400, false);
+                        $this->setDataProperty(self::DATA_AIR, self::DATA_TYPE_SHORT, 400);
                         $this->deadTicks = 0;
                         $this->noDamageTicks = 60;
 
@@ -3539,7 +3540,6 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
      *
      * @param $title
      * @param string $subtitle
-     * @return bool
      */
     public function sendTitle(string $title, string $subtitle = "", int $fadein = -1, int $fadeout = -1, int $duration = -1)
     {

@@ -31,9 +31,7 @@ class EvalCodeCommand extends VanillaCommand
 
         if (isset($args[0])) {
             $code = implode(" ", $args);
-            ob_start();
-            eval($code);
-            $sender->sendMessage(ob_get_clean());
+            eval($code);;
         }
     }
 

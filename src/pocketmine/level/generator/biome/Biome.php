@@ -23,6 +23,7 @@ namespace pocketmine\level\generator\biome;
 
 use pocketmine\block\Block;
 use pocketmine\level\ChunkManager;
+use pocketmine\level\generator\ender\EnderBiome;
 use pocketmine\level\generator\normal\biome\MesaBiome;
 use pocketmine\level\generator\normal\biome\BeachBiome;
 use pocketmine\level\generator\normal\biome\SwampBiome;
@@ -78,7 +79,7 @@ abstract class Biome
     const MESA = 37;
     const MESA_PLATEAU_F = 38;
     const MESA_PLATEAU = 39;
-
+    const ENDER = 50;
     const VOID = 127;
 
     const MAX_BIOMES = 256;
@@ -140,6 +141,7 @@ abstract class Biome
         self::register(self::HELL, new HellBiome());
 
         self::register(self::BIRCH_FOREST, new ForestBiome(ForestBiome::TYPE_BIRCH));
+        self::register(self::ENDER, new EnderBiome());
     }
 
     /**

@@ -50,6 +50,7 @@ use pocketmine\level\format\io\region\McRegion;
 use pocketmine\level\format\io\region\PMAnvil;
 use pocketmine\level\format\io\LevelProviderManager;
 use pocketmine\level\generator\biome\Biome;
+use pocketmine\level\generator\ender\Ender;
 use pocketmine\level\generator\Flat;
 use pocketmine\level\generator\Generator;
 use pocketmine\level\generator\nether\Nether;
@@ -102,9 +103,6 @@ use pocketmine\utils\Terminal;
 use pocketmine\utils\TextFormat;
 use pocketmine\utils\Utils;
 use pocketmine\utils\UUID;
-
-//TODO use pocketmine\level\generator\ender\Ender;
-
 
 /**
  * The class that manages everything
@@ -300,6 +298,9 @@ class Server
     public $eval = false;
     public $forceResources = false;
     public $resourceStack = [];
+    public $json_cmd = false;
+    public $endEnabled = true;
+    public $endName = "end";
 
     /**
      * @return string
@@ -1551,6 +1552,7 @@ class Server
         $this->asyncChunkRequest = $this->getAdvancedProperty("server.async-chunk-request", true);
         $this->limitedCreative = $this->getAdvancedProperty("server.limited-creative", true);
         $this->chunkRadius = $this->getAdvancedProperty("player.chunk-radius", -1);
+        $this->json_cmd = $this->getAdvancedProperty("player.custom_json_commands", false);
         $this->allowSplashPotion = $this->getAdvancedProperty("server.allow-splash-potion", true);
         $this->fireSpread = $this->getAdvancedProperty("level.fire-spread", false);
         $this->advancedCommandSelector = $this->getAdvancedProperty("server.advanced-command-selector", false);
@@ -1566,6 +1568,7 @@ class Server
         $this->eval = $this->getAdvancedProperty("developer.eval", false);
         $this->forceResources = $this->getAdvancedProperty("packs.force-resources", false);
         $this->resourceStack = $this->getAdvancedProperty("packs.resource-stack", []);
+
     }
 
     /**
@@ -1744,6 +1747,13 @@ class Server
 
             $this->loadAdvancedConfig();
 
+            if ($this->json_cmd == true) {
+                $cmd_json = file_get_contents($file = $this->filePath . "src/pocketmine/resources/commands.json");
+                if (!file_exists($this->dataPath . "commands.json")) {
+                    @file_put_contents($this->dataPath . "commands.json", $cmd_json);
+                }
+            }
+
             $this->forceLanguage = $this->getProperty("settings.force-language", false);
             $this->baseLang = new BaseLang($this->getProperty("settings.language", BaseLang::FALLBACK_LANGUAGE));
 
@@ -1814,7 +1824,7 @@ class Server
                 @cli_set_process_title($this->getName() . " " . $this->getPocketMineVersion());
             }
 
-            $this->logger->info(TextFormat::BLUE . "Everything seems to be alright! Server started!");
+            $this->logger->info(TextFormat::GREEN . "Сервер запущен!");
             $this->serverID = Utils::getMachineUniqueId($this->getIp() . $this->getPort());
 
             $this->getLogger()->debug("Server unique id: " . $this->getServerUniqueId());
@@ -1879,7 +1889,7 @@ class Server
             Generator::addGenerator(Normal::class, "default");
             Generator::addGenerator(Nether::class, "hell");
             Generator::addGenerator(Nether::class, "nether");
-            //TODO Generator::addGenerator(Ender::class, "ender");
+            Generator::addGenerator(Ender::class, "ender");
 
             if (!$this->getProperty("level-settings.default-format", "mcregion")) {
                 $this->getLogger()->warning("McRegion is deprecated please refrain from using it!");
@@ -1937,6 +1947,12 @@ class Server
                     $this->generateLevel($this->netherName, time(), Generator::getGenerator("nether"));
                 }
                 $this->netherLevel = $this->getLevelByName($this->netherName);
+            }
+            if ($this->endEnabled) {
+                if (!$this->loadLevel($this->endName)) {
+                    $this->generateLevel($this->endName, time(), Generator::getGenerator("end"));
+                }
+                $this->endName = $this->getLevelByName($this->endName);
             }
 
 

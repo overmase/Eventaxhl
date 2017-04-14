@@ -55,6 +55,7 @@ player:
  #This may cause lag if set to high values, if you experience crashes, put it below 10
  #It can also be disabled by setting "-1" for the value
  chunk-radius: -1
+ custom_json_commands: false
 
 anticheat:
  #This setting decides if the system tracks the movement speed and position of everyone in game, it will see if it is good or bad
