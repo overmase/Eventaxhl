@@ -2141,19 +2141,19 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 
                 if (!in_array($packet->protocol, ProtocolInfo::ACCEPTED_PROTOCOLS)) {
                     if ($packet->protocol < ProtocolInfo::CURRENT_PROTOCOL) {
-                        $message = "disconnectionScreen.outdatedClient";
+                        $message = TextFormat::RED . "Ваш клиент устарел обновите версию игры до " . TextFormat::GREEN . ProtocolInfo::MINECRAFT_VERSION;
 
-                        $pk = new PlayStatusPacket();
+                        /*$pk = new PlayStatusPacket();
                         $pk->status = PlayStatusPacket::LOGIN_FAILED_CLIENT;
-                        $this->directDataPacket($pk);
+                        $this->directDataPacket($pk);*/
                     } else {
-                        $message = "disconnectionScreen.outdatedServer";
+                        $message = TextFormat::RED . "Версия сервера устарела. Для входа на сервер используйте версию игры " . TextFormat::GREEN . ProtocolInfo::MINECRAFT_VERSION;
 
-                        $pk = new PlayStatusPacket();
+                        /*$pk = new PlayStatusPacket();
                         $pk->status = PlayStatusPacket::LOGIN_FAILED_SERVER;
-                        $this->directDataPacket($pk);
+                        $this->directDataPacket($pk);*/
                     }
-                    $this->close("", $message, false);
+                    $this->close("", $message);
 
                     break;
                 }
@@ -2163,7 +2163,7 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
                 $this->uuid = UUID::fromString($packet->clientUUID);
                 $this->rawUUID = $this->uuid->toBinary();
 
-                $valid = true;
+                /*$valid = true;
                 $len = strlen($packet->username);
                 if ($len > 16 or $len < 3) {
                     $valid = false;
@@ -2176,17 +2176,42 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 
                     $valid = false;
                     break;
+                }*/
+
+                $valid = true;
+                $nameReason = "это недопустимый ник!";
+                $username = $this->iusername;
+                $len = strlen($username);
+                if ($len < 3) {
+                    $nameReason = "он слишком короткий!";
+                    $valid = false;
+                }
+                if ($len > 16) {
+                    $nameReason = "он слишком длинный!";
+                    $valid = false;
+                }
+                for ($i = 0; $i < $len and $valid; ++$i) {
+                    $c = ord($username{$i});
+                    if (($c >= ord("a") and $c <= ord("z")) or ($c >= ord("0") and $c <= ord("9")) or $c === ord("_")) {
+                        continue;
+                    } elseif ($c === ord(" ")) {
+                        $nameReason = "он не должен содержать пробелов!";
+                    } elseif ($c === ord(".")) {
+                        $nameReason = "он не должен содержать точек!";
+                    } elseif (preg_match("/^[а-я]+$/i", ord($c))) {
+                        $nameReason = "он не должен содержать русских букв!";
+                    }
+                    $valid = false;
+                    break;
                 }
 
                 if (!$valid or $this->iusername === "rcon" or $this->iusername === "console") {
-                    $this->close("", "disconnectionScreen.invalidName");
-
+                    $this->close("", TextFormat::RED . "Вы не можете использовать данный ник, так как " . $nameReason);
                     break;
                 }
 
                 if ((strlen($packet->skin) != 64 * 64 * 4) and (strlen($packet->skin) != 64 * 32 * 4)) {
-                    $this->close("", "disconnectionScreen.invalidSkin");
-
+                    $this->close("", TextFormat::RED . "Неверный формат скина!");
                     break;
                 }
 
