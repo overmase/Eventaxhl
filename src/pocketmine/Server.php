@@ -1950,7 +1950,7 @@ class Server
             }
             if ($this->endEnabled) {
                 if (!$this->loadLevel($this->endName)) {
-                    $this->generateLevel($this->endName, time(), Generator::getGenerator("end"));
+                    $this->generateLevel($this->endName, time(), Generator::getGenerator("ender"));
                 }
                 $this->endName = $this->getLevelByName($this->endName);
             }
