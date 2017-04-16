@@ -2251,10 +2251,10 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
                 $this->directDataPacket($infoPacket);
 
                 /*if ($this->isConnected()) {
-                    $this->onPlayerPreLogin();
+                    $this->processLogin();
                 }*/
-
                 break;
+                
             case ProtocolInfo::RESOURCE_PACK_CLIENT_RESPONSE_PACKET:
                 switch ($packet->status) {
                     case ResourcePackClientResponsePacket::STATUS_REFUSED:
