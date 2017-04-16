@@ -22,9 +22,73 @@
 namespace pocketmine\item;
 
 
-class EyeOfEnder extends Item{
-	public function __construct($meta = 0, $count = 1){
-		parent::__construct(self::EYE_OF_ENDER, 0, $count, "Eye Of Ender");
-	}
+use pocketmine\block\Block;
+use pocketmine\level\Level;
+use pocketmine\math\Vector3;
+use pocketmine\Player;
+
+class EyeOfEnder extends Item
+{
+
+    public function __construct($meta = 0, $count = 1)
+    {
+        parent::__construct(self::EYE_OF_ENDER, 0, $count, "Eye Of Ender");
+    }
+
+    public function canBeActivated(): bool
+    {
+        return true;
+    }
+
+    public function onActivate(Level $level, Player $player, Block $block, Block $target, $face, $fx, $fy, $fz)
+    {
+        if ($target->getId() == Block::END_PORTAL_FRAME and $player->getServer()->endEnabled) {
+            if ($target->getDamage() !== 4) {
+                $level->setBlock(new Vector3($target->getX(), $target->getY(), $target->getZ()), Block::get(Block::END_PORTAL_FRAME, 4));
+                $x = $target->x;
+                $y = $target->y;
+                $z = $target->z;
+                if ($level->getBlock(new Vector3($x - 1, $y, $z))->getDamage() == 4) {
+                    if ($level->getBlock(new Vector3($x - 2, $y, $z))->getDamage() == 4 or $level->getBlock(new Vector3($x + 1, $y, $z))->getDamage() == 4) {
+                        if ($player->getServer()->rowPositive == false) {
+                            $player->getServer()->rowPositive = true;
+                        } elseif ($player->getServer()->rowNegative == false) {
+                            $player->getServer()->rowNegative = true;
+                        }
+                    }
+                } elseif ($level->getBlock(new Vector3($x + 1, $y, $z))->getDamage() == 4) {
+                    if ($level->getBlock(new Vector3($x + 2, $y, $z))->getDamage() == 4 or $level->getBlock(new Vector3($x - 1, $y, $z))->getDamage() == 4) {
+                        if ($player->getServer()->rowPositive == false) {
+                            $player->getServer()->rowPositive = true;
+                        } elseif ($player->getServer()->rowNegative == false) {
+                            $player->getServer()->rowNegative = true;
+                        }
+                    }
+                } elseif ($level->getBlock(new Vector3($x, $y, $z - 1))->getDamage() == 4) {
+                    if ($level->getBlock(new Vector3($x, $y, $z - 2))->getDamage() == 4 or $level->getBlock(new Vector3($x, $y, $z + 1))->getDamage() == 4) {
+                        if ($player->getServer()->columPositive == false) {
+                            $player->getServer()->columPositive = true;
+                        } elseif ($player->getServer()->columNegative == false) {
+                            $player->getServer()->columNegative = true;
+                        }
+                    }
+                } elseif ($level->getBlock(new Vector3($x, $y, $z + 1))->getDamage() == 4) {
+                    if ($level->getBlock(new Vector3($x, $y, $z + 2))->getDamage() == 4 or $level->getBlock(new Vector3($x, $y, $z - 1))->getDamage() == 4) {
+                        if ($player->getServer()->columPositive == false) {
+                            $player->getServer()->columPositive = true;
+                        } elseif ($player->getServer()->columNegative == false) {
+                            $player->getServer()->columNegative = true;
+                        }
+                    }
+                }
+
+                if ($player->getServer()->columPositive && $player->getServer()->columNegative && $player->getServer()->rowPositive && $player->getServer()->rowNegative) {
+                    //TODO add create portal
+                }
+            }
+
+        }
+        return parent::onActivate($level, $player, $block, $target, $face, $fx, $fy, $fz);
+    }
 
 }

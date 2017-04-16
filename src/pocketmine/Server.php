@@ -302,6 +302,11 @@ class Server
     public $endEnabled = true;
     public $endName = "end";
 
+    public $rowPositive = false;
+    public $rowNegative = false;
+    public $columPositive = false;
+    public $columNegative = false;
+
     /**
      * @return string
      */

@@ -1634,6 +1634,16 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
                         }
                     }
 
+                    if ($this->server->endEnabled) {
+                        if ($this->isInsideOfEndPortal()) {
+                            if ($this->getLevel() === $this->server->getDefaultLevel()) {
+                                $this->teleport($this->server->endName->getSafeSpawn());
+                            } else {
+                                $this->teleport($this->server->getDefaultLevel()->getSafeSpawn());
+                            }
+                        }
+                    }
+
                     if ($to->distanceSquared($ev->getTo()) > 0.01) { //If plugins modify the destination
                         $this->teleport($ev->getTo());
                     } else {
