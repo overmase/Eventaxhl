@@ -1638,8 +1638,15 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
                         if ($this->isInsideOfEndPortal()) {
                             if ($this->getLevel() === $this->server->getDefaultLevel()) {
                                 $this->teleport($this->server->endName->getSafeSpawn());
+                                /*$pk = new PlayStatusPacket();
+                                $pk->status = 3;
+                                $this->dataPacket($pk);*/
                             } else {
                                 $this->teleport($this->server->getDefaultLevel()->getSafeSpawn());
+                                /*$pk = new PlayStatusPacket();
+                                $pk->status = 3;
+                                $this->dataPacket($pk);*/
+                                //This will fix the world boot screen, but it can cause problems for players when generating the world
                             }
                         }
                     }
@@ -1781,6 +1788,10 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
                             $this->fromPos->x = ((int)$this->fromPos->x) + 0.5;
                             $this->fromPos->z = ((int)$this->fromPos->z) + 0.5;
                             $this->teleport($this->shouldResPos = $netherLevel->getSafeSpawn());
+                            /*$pk = new PlayStatusPacket();
+                            $pk->status = PlayStatusPacket::PLAYER_SPAWN;
+                            $this->dataPacket($pk);*/
+                            //This will fix the world boot screen, but it can cause problems for players when generating the world
                         } elseif ($this->fromPos instanceof Position) {
                             if (!($this->getLevel()->isChunkLoaded($this->fromPos->x, $this->fromPos->z))) {
                                 $this->getLevel()->loadChunk($this->fromPos->x, $this->fromPos->z);
@@ -2631,6 +2642,10 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
                         if ($this->server->netherEnabled) {
                             if ($this->level === $this->server->getLevelByName($this->server->netherName)) {
                                 $this->teleport($pos = $this->server->getDefaultLevel()->getSafeSpawn());
+                                /*$pk = new PlayStatusPacket();
+                                $pk->status = PlayStatusPacket::PLAYER_SPAWN;
+                                $this->dataPacket($pk);*/
+                                //This will fix the world boot screen, but it can cause problems for players when generating the world
                             }
                         }
 

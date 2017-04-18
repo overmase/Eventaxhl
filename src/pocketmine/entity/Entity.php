@@ -1427,14 +1427,9 @@ abstract class Entity extends Location implements Metadatable
 
     public function isInsideOfEndPortal()
     {
-        $blocks = $this->getBlocksAround();
-
-        foreach ($blocks as $block) {
-            if ($block instanceof EndPortal) {
-                return true;
-            }
+        if ($this->getLevel()->getBlockIdAt($this->x, $this->y - 1, $this->z) === Block::END_PORTAL) {
+            return true;
         }
-
         return false;
     }
 
