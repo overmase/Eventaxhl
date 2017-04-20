@@ -1977,7 +1977,7 @@ class Server
                 $this->dserverConfig["timer"]);
 
             if ($cfgVer > $advVer) {
-                $this->logger->notice("Файл Eventaxhl.yml необходимо обновить (Текущая версия : $advVer -> Latest: $cfgVer)");
+                $this->logger->notice("Файл Eventaxhl.yml необходимо обновить (Текущая версия : $advVer -> последняя: $cfgVer)");
             }
 
             $this->start();
