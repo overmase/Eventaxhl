@@ -301,6 +301,7 @@ class Server
     public $json_cmd = false;
     public $endEnabled = true;
     public $endName = "end";
+    public $removeLoadingScreen = true;
 
     public $rowPositive = false;
     public $rowNegative = false;
@@ -1534,6 +1535,9 @@ class Server
         $this->keepExperience = $this->getAdvancedProperty("player.keep-experience", false);
         $this->netherEnabled = $this->getAdvancedProperty("level.allow-nether", false);
         $this->netherName = $this->getAdvancedProperty("level.level-name", "nether");
+        $this->endEnabled = $this->getAdvancedProperty("level.allow-end", false);
+        $this->endName = $this->getAdvancedProperty("level.end-level-name", "end");
+        $this->removeLoadingScreen = $this->getAdvancedProperty("level.remove-loading-screen", true);
         $this->weatherRandomDurationMin = $this->getAdvancedProperty("level.weather-random-duration-min", 6000);
         $this->weatherRandomDurationMax = $this->getAdvancedProperty("level.weather-random-duration-max", 12000);
         $this->lightningTime = $this->getAdvancedProperty("level.lightning-time", 200);
@@ -1573,7 +1577,6 @@ class Server
         $this->eval = $this->getAdvancedProperty("developer.eval", false);
         $this->forceResources = $this->getAdvancedProperty("packs.force-resources", false);
         $this->resourceStack = $this->getAdvancedProperty("packs.resource-stack", []);
-
     }
 
     /**
@@ -1739,7 +1742,7 @@ class Server
             if (file_exists($this->filePath . "src/pocketmine/resources/Eventaxhl_$lang.yml")) {
                 $content = file_get_contents($file = $this->filePath . "src/pocketmine/resources/Eventaxhl_$lang.yml");
             } else {
-                $content = file_get_contents($file = $this->filePath . "src/pocketmine/resources/Eventaxhl_eng.yml");
+                $content = file_get_contents($file = $this->filePath . "src/pocketmine/resources/Eventaxhl_rus.yml");
             }
 
             if (!file_exists($this->dataPath . "Eventaxhl.yml")) {
@@ -1880,7 +1883,7 @@ class Server
             if ($this->getAdvancedProperty("network.raklib-disable") === false) {
                 $this->network->registerInterface(new RakLibInterface($this));
             } else {
-                $this->logger->notice("Raklib disabled by Eventaxhls.yml!");
+                $this->logger->notice("Raklib отключен в Eventaxhls.yml!");
             }
 
             LevelProviderManager::addProvider(Anvil::class);
@@ -1897,7 +1900,7 @@ class Server
             Generator::addGenerator(Ender::class, "ender");
 
             if (!$this->getProperty("level-settings.default-format", "mcregion")) {
-                $this->getLogger()->warning("McRegion is deprecated please refrain from using it!");
+                $this->getLogger()->warning("McRegion устарел!");
             }
 
             foreach ((array)$this->getProperty("worlds", []) as $name => $worldSetting) {
@@ -1974,7 +1977,7 @@ class Server
                 $this->dserverConfig["timer"]);
 
             if ($cfgVer > $advVer) {
-                $this->logger->notice("Your Eventaxhl.yml needs update (Current : $advVer -> Latest: $cfgVer)");
+                $this->logger->notice("Файл Eventaxhl.yml необходимо обновить (Текущая версия : $advVer -> Latest: $cfgVer)");
             }
 
             $this->start();
@@ -1993,11 +1996,10 @@ class Server
     public function isExtensionInstalled($type)
     {
         switch ($type) {
-
             case 'OpenSSL':
                 if (!extension_loaded("openssl")) {
-                    return "false";
                     $this->setConfigBool("online-mode", false);
+                    return "false";
 
                 } else {
                     return "true";
@@ -2011,6 +2013,7 @@ class Server
                     return "true";
                 }
         }
+        return "false";
     }
 
     public function checkAuthentication()

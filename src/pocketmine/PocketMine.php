@@ -93,14 +93,12 @@ namespace pocketmine {
     }
 
     if (version_compare("7.0", PHP_VERSION) > 0) {
-        echo "[CRITICAL] You must use PHP >= 7.0" . PHP_EOL;
-        echo "[CRITICAL] Please use the installer provided on the homepage." . PHP_EOL;
+        echo "[CRITICAL] Используйте версию PHP >= 7.0" . PHP_EOL;
         exit(1);
     }
 
     if (!extension_loaded("pthreads")) {
-        echo "[CRITICAL] Unable to find the pthreads extension." . PHP_EOL;
-        echo "[CRITICAL] Please use the installer provided on the homepage." . PHP_EOL;
+        echo "[CRITICAL] Для работы сервера необходимо расширение pthreads" . PHP_EOL;
         exit(1);
     }
 
@@ -389,12 +387,12 @@ namespace pocketmine {
     $errors = 0;
 
     if (php_sapi_name() !== "cli") {
-        $logger->critical("You must run PocketMine-MP using the CLI.");
+        $logger->critical("Вы должны запустить PocketMine-MP, используя CLI");
         ++$errors;
     }
 
     if (!extension_loaded("sockets")) {
-        $logger->critical("Unable to find the Socket extension.");
+        $logger->critical("Необходимо найти расширение Socket");
         ++$errors;
     }
 
@@ -403,7 +401,7 @@ namespace pocketmine {
         $pthreads_version = "0.$pthreads_version";
     }
     if (version_compare($pthreads_version, "3.1.5") < 0) {
-        $logger->critical("pthreads >= 3.1.5 is required, while you have $pthreads_version.");
+        $logger->critical("pthreads >= 3.1.5, тогда как у вас установлен $pthreads_version.");
         ++$errors;
     }
 
@@ -425,33 +423,33 @@ namespace pocketmine {
         $logger->warning("
 
 
-	You are running PocketMine with xdebug enabled. This has a major impact on performance.
+	Вы используете PocketMine с включенным xdebug. Это оказывает большое влияние на производительность.
 
 		");
     }
 
     if (!extension_loaded("curl")) {
-        $logger->critical("Unable to find the cURL extension.");
+        $logger->critical("Необходимо найти расширение cURL");
         ++$errors;
     }
 
     if (!extension_loaded("yaml")) {
-        $logger->critical("Unable to find the YAML extension.");
+        $logger->critical("Необходимо найти расширение YAML");
         ++$errors;
     }
 
     if (!extension_loaded("sqlite3")) {
-        $logger->critical("Unable to find the SQLite3 extension.");
+        $logger->critical("Необходимо найти расширение SQLite3");
         ++$errors;
     }
 
     if (!extension_loaded("zlib")) {
-        $logger->critical("Unable to find the Zlib extension.");
+        $logger->critical("Необходимо найти расширение Zlib extension");
         ++$errors;
     }
 
     if ($errors > 0) {
-        $logger->critical("Please update your PHP from itxtech.org/genisys/get/, or recompile PHP again.");
+        $logger->critical("Попробуйте обновить ваши бинарные файлы PHP из itxtech.org/genisys/get/, или скомпилировать PHP заново");
         $logger->shutdown();
         $logger->join();
         exit(1); //Exit with error
@@ -476,7 +474,7 @@ namespace pocketmine {
     ThreadManager::init();
     new Server($autoloader, $logger, \pocketmine\PATH, \pocketmine\DATA, \pocketmine\PLUGIN_PATH, $lang);
 
-    $logger->info("Stopping other threads");
+    $logger->info("Остановка других потоков");
 
     foreach (ThreadManager::getInstance()->getAll() as $id => $thread) {
         $logger->debug("Stopping " . (new \ReflectionClass($thread))->getShortName() . " thread");
@@ -488,9 +486,9 @@ namespace pocketmine {
 
     //echo "Server has stopped" . Terminal::$FORMAT_RESET . "\n";
 
-    $logger->info(Utils::getThreadCount() . " threads has stopped");//add threads count
+    $logger->info(Utils::getThreadCount() . " потока(ов) остановлено");
 
-    $logger->info("Server has stopped");
+    $logger->info("Сервер остановлен!");
 
     exit(0);
 
