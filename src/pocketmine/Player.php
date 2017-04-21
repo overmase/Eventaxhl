@@ -2169,17 +2169,11 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 
                 if (!in_array($packet->protocol, ProtocolInfo::ACCEPTED_PROTOCOLS)) {
                     if ($packet->protocol < ProtocolInfo::CURRENT_PROTOCOL) {
-                        $message = TextFormat::RED . "Ваш клиент устарел обновите версию игры до " . TextFormat::GREEN . ProtocolInfo::MINECRAFT_VERSION;
-
-                        /*$pk = new PlayStatusPacket();
-                        $pk->status = PlayStatusPacket::LOGIN_FAILED_CLIENT;
-                        $this->directDataPacket($pk);*/
+                        $message = $this->server->outdated_client;
+                        $message = str_replace("{version}", ProtocolInfo::MINECRAFT_VERSION, $message);
                     } else {
-                        $message = TextFormat::RED . "Версия сервера устарела. Для входа на сервер используйте версию игры " . TextFormat::GREEN . ProtocolInfo::MINECRAFT_VERSION;
-
-                        /*$pk = new PlayStatusPacket();
-                        $pk->status = PlayStatusPacket::LOGIN_FAILED_SERVER;
-                        $this->directDataPacket($pk);*/
+                        $message = $this->server->outdated_server;
+                        $message = str_replace("{version}", ProtocolInfo::MINECRAFT_VERSION, $message);
                     }
                     $this->close("", $message);
 
@@ -2190,21 +2184,6 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 
                 $this->uuid = UUID::fromString($packet->clientUUID);
                 $this->rawUUID = $this->uuid->toBinary();
-
-                /*$valid = true;
-                $len = strlen($packet->username);
-                if ($len > 16 or $len < 3) {
-                    $valid = false;
-                }
-                for ($i = 0; $i < $len and $valid; ++$i) {
-                    $c = ord($packet->username{$i});
-                    if (($c >= ord("a") and $c <= ord("z")) or ($c >= ord("A") and $c <= ord("Z")) or ($c >= ord("0") and $c <= ord("9")) or $c === ord("_")) {
-                        continue;
-                    }
-
-                    $valid = false;
-                    break;
-                }*/
 
                 $valid = true;
                 $nameReason = "это недопустимый ник!";

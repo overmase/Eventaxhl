@@ -302,6 +302,8 @@ class Server
     public $endEnabled = true;
     public $endName = "end";
     public $removeLoadingScreen = true;
+    public $outdated_server = "";
+    public $outdated_client = "";
 
     public $rowPositive = false;
     public $rowNegative = false;
@@ -1577,6 +1579,8 @@ class Server
         $this->eval = $this->getAdvancedProperty("developer.eval", false);
         $this->forceResources = $this->getAdvancedProperty("packs.force-resources", false);
         $this->resourceStack = $this->getAdvancedProperty("packs.resource-stack", []);
+        $this->outdated_client = $this->getAdvancedProperty("player.outdated-client", "disconnectionScreen.outdatedClient");
+        $this->outdated_server = $this->getAdvancedProperty("player.outdated-server", "disconnectionScreen.outdatedServer");
     }
 
     /**
