@@ -65,7 +65,7 @@ player:
  chunk-radius: -1
  custom_json_commands: false
  outdated-server: "§cВерсия сервера устарела. Для входа на сервер используйте версию игры §a{version} §c\nСкачать: §evipmcpe.ru/dl/mcpe.apk"
- outdated-client: "§cВаш клиент устарел обновите версию игры до §a{version} \n§cСкачать: §evipmcpe.ru/dl/mcpe.apk"
+ outdated-client: "§cВаш клиент устарел, обновите версию игры до §a{version} \n§cСкачать: §evipmcpe.ru/dl/mcpe.apk"
 
 anticheat:
  #Этот параметр решает, отслеживается ли системой скорость движения и положение каждого в игре, и будет видеть, хорошо это или плохо
