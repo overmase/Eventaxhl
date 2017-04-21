@@ -27,3 +27,5 @@ src/.idea/workspace.xml
 src/.idea/misc.xml
 src/.idea/dictionaries/alex.xml
 src/.idea/vcs.xml
+ops.json
+whitelist.json
