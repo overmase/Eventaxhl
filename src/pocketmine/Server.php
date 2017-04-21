@@ -307,6 +307,7 @@ class Server
     public $redstoneEnabled = false;
     public $allowFrequencyPulse = true;
     public $pulseFrequency = 20;
+    public $showPackets = true;
 
     public $rowPositive = false;
     public $rowNegative = false;
@@ -1588,6 +1589,7 @@ class Server
         $this->redstoneEnabled = $this->getAdvancedProperty("redstone.enable", false);
         $this->allowFrequencyPulse = $this->getAdvancedProperty("redstone.allow-frequency-pulse", false);
         $this->pulseFrequency = $this->getAdvancedProperty("redstone.pulse-frequency", 20);
+        $this->showPackets = $this->getAdvancedProperty("developer.show-packets", true);
     }
 
     /**

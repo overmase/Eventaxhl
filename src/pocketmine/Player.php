@@ -2128,6 +2128,9 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 
         $timings->startTiming();
 
+        if ($this->server->showPackets)
+            $this->server->getLogger()->debug($packet->getName() . "0x" . $packet::NETWORK_ID);
+
         $this->server->getPluginManager()->callEvent($ev = new DataPacketReceiveEvent($this, $packet));
         if ($ev->isCancelled()) {
             $timings->stopTiming();
@@ -2276,7 +2279,7 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
                 if ($this->server->antiFly == true) {
                     $isHacker = ($this->allowFlight === false && ($packet->flags >> 9) & 0x01 === 1) || (!$this->isSpectator() && ($packet->flags >> 7) & 0x01 === 1);
                     if ($isHacker) {
-                        $this->kick("Flying is not enabled on this server");
+                        $this->close("", TextFormat::RED . "Не используйте читы");
                     } else {
                         $this->server->getPluginManager()->callEvent($ev = new PlayerToggleFlightEvent($this, $packet->isFlying));
                         if ($ev->isCancelled()) {

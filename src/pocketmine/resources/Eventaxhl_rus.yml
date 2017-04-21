@@ -11,7 +11,7 @@
 
 #Версия этого файла
 config:
- version: 31
+ version: 32
 
 level:
  #Этот параметр определяет, разрешена ли в игре погода (дождь может вызвать задержку для старых устройств)
@@ -84,6 +84,9 @@ developer:
   folder-plugin-loader: true
   #Этот параметр добавит команду "eval" для исполнения кода прямо в игре
   eval: false
+  #Этот параметр отправляет все пакеты игроков в консоль, но только при загрузке PocketMine с debug level 2
+  #Рекомендуется оставить "false"
+  show-packets: false
 
 packs:
   force-resources: false
