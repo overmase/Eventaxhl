@@ -1,1 +1,0 @@
-git clone https://github.com/ISRAPIL/FastCorePE.git; sleep 3; rm -r ./src; mv ./FastCorePE/src ./; rm -r ./FastCorePE
