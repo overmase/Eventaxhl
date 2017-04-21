@@ -304,6 +304,9 @@ class Server
     public $removeLoadingScreen = true;
     public $outdated_server = "";
     public $outdated_client = "";
+    public $redstoneEnabled = false;
+    public $allowFrequencyPulse = true;
+    public $pulseFrequency = 20;
 
     public $rowPositive = false;
     public $rowNegative = false;
@@ -1581,6 +1584,10 @@ class Server
         $this->resourceStack = $this->getAdvancedProperty("packs.resource-stack", []);
         $this->outdated_client = $this->getAdvancedProperty("player.outdated-client", "disconnectionScreen.outdatedClient");
         $this->outdated_server = $this->getAdvancedProperty("player.outdated-server", "disconnectionScreen.outdatedServer");
+
+        $this->redstoneEnabled = $this->getAdvancedProperty("redstone.enable", false);
+        $this->allowFrequencyPulse = $this->getAdvancedProperty("redstone.allow-frequency-pulse", false);
+        $this->pulseFrequency = $this->getAdvancedProperty("redstone.pulse-frequency", 20);
     }
 
     /**

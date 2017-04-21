@@ -29,6 +29,7 @@ use pocketmine\block\Block;
 use pocketmine\block\EndPortal;
 use pocketmine\block\Fire;
 use pocketmine\block\Portal;
+use pocketmine\block\PressurePlate;
 use pocketmine\block\Water;
 use pocketmine\block\SlimeBlock;
 use pocketmine\entity\Item as DroppedItem;
@@ -167,6 +168,7 @@ abstract class Entity extends Location implements Metadatable
     /** @var Entity[] */
     private static $knownEntities = [];
     private static $shortNames = [];
+    protected $activatedPressurePlates = [];
 
     public static function init()
     {
@@ -1707,12 +1709,21 @@ abstract class Entity extends Location implements Metadatable
     protected function checkBlockCollision()
     {
         $vector = new Vector3(0, 0, 0);
-
         foreach ($blocksaround = $this->getBlocksAround() as $block) {
             $block->onEntityCollide($this);
+            if ($this->getLevel()->getServer()->redstoneEnabled and !$this->isPlayer) {
+                if ($block instanceof PressurePlate) {
+                    $this->activatedPressurePlates[Level::blockHash($block->x, $block->y, $block->z)] = $block;
+                }
+            }
             $block->addVelocityToEntity($this, $vector);
         }
-
+        if ($this->getLevel()->getServer()->redstoneEnabled and !$this->isPlayer) {
+            /** @var \pocketmine\block\PressurePlate $block * */
+            foreach ($this->activatedPressurePlates as $key => $block) {
+                if (!isset($blocksaround[$key])) $block->checkActivation();
+            }
+        }
         if ($vector->lengthSquared() > 0) {
             $vector = $vector->normalize();
             $d = 0.014;

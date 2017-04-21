@@ -24,6 +24,7 @@ namespace pocketmine;
 use pocketmine\block\Air;
 use pocketmine\block\Block;
 use pocketmine\block\Fire;
+use pocketmine\block\PressurePlate;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
 use pocketmine\entity\Animal;
@@ -4245,5 +4246,23 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
         }
 
         parent::addEffect($effect);
+    }
+
+    protected function checkBlockCollision()
+    {
+        foreach ($blocksaround = $this->getBlocksAround() as $block) {
+            $block->onEntityCollide($this);
+            if ($this->getServer()->redstoneEnabled) {
+                if ($block instanceof PressurePlate) {
+                    $this->activatedPressurePlates[Level::blockHash($block->x, $block->y, $block->z)] = $block;
+                }
+            }
+        }
+        if ($this->getServer()->redstoneEnabled) {
+            /** @var \pocketmine\block\PressurePlate $block * */
+            foreach ($this->activatedPressurePlates as $key => $block) {
+                if (!isset($blocksaround[$key])) $block->checkActivation();
+            }
+        }
     }
 }
