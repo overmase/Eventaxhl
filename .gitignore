@@ -6,7 +6,6 @@ timings/*
 resource_packs/*
 *.log
 *.phar
-*.json
 server.properties
 /pocketmine.yml
 *.txt
