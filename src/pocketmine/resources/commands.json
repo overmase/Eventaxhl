@@ -1,0 +1,68 @@
+{
+  "version": {
+    "versions": [
+      {
+        "description": "Gets the version of this server",
+        "permission": "any",
+        "aliases": [
+          "ver",
+          "about"
+        ],
+        "overloads": {
+          "byPass": {
+            "input": {
+              "parameters": []
+            },
+            "output": {
+              "parameters": []
+            }
+          }
+        }
+      }
+    ]
+  },
+  "help": {
+    "versions": [
+      {
+        "description": "Show list of available commands",
+        "permission": "any",
+        "aliases": [],
+        "overloads": {
+          "total": {
+            "input": {
+              "parameters": [
+                {
+                  "name": "pageNumber",
+                  "type": "int",
+                  "optional": true
+                }
+              ]
+            },
+            "output": {
+              "parameters": []
+            }
+          },
+          "byName": {
+            "input": {
+              "parameters": [
+                {
+                  "name": "topic",
+                  "type": "rawtext",
+                  "optional": true
+                },
+                {
+                  "name": "pageNumber",
+                  "type": "int",
+                  "optional": true
+                }
+              ]
+            },
+            "output": {
+              "parameters": []
+            }
+          }
+        }
+      }
+    ]
+  }
+}
