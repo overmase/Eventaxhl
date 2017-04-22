@@ -52,16 +52,16 @@ class Installer
 
     public function __construct()
     {
-        echo "[*] Eventaxhl set-up wizard\n";
-        echo "[*] Please select a language:\n";
+        echo "[*] Мастер установки Eventaxhl \n";
+        echo "[*] Выберите язык:\n";
         foreach (InstallerLang::$languages as $short => $native) {
             echo " $native => $short\n";
         }
         do {
-            echo "[?] Language (eng): ";
-            $lang = strtolower($this->getInput("eng"));
+            echo "[?] Язык (rus): ";
+            $lang = strtolower($this->getInput("rus"));
             if (!isset(InstallerLang::$languages[$lang])) {
-                echo "[!] Couldn't find the language\n";
+                echo "[!] Не удалось найти язык\n";
                 $lang = false;
             }
             $this->defaultLang = $lang;
@@ -100,17 +100,16 @@ class Installer
         echo $this->lang->welcome_to_pocketmine . "\n";
         echo <<<LICENSE
 
-  This program is free software: you can redistribute it and/or modify
-  it under the terms of the GNU Lesser General Public License as published by
-  the Free Software Foundation, either version 3 of the License, or
-  (at your option) any later version.
+  Эта программа является свободным программным обеспечением: вы можете распространять его и / или модифицировать
+  В соответствии с условиями лицензии GNU Lesser General Public License, опубликованной
+  Фондом свободного программного обеспечения, либо третьей версии Лицензии, либо
+  (По вашему выбору) любой более поздней версии.
 
 LICENSE;
         echo "\n[?] " . $this->lang->accept_license . " (y/N): ";
         if (strtolower($this->getInput("n")) != "y") {
             echo "[!] " . $this->lang->you_have_to_accept_the_license . "\n";
             sleep(5);
-
             return false;
         }
 

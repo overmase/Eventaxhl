@@ -2336,7 +2336,7 @@ class Server
         }*/
 
         $this->getPluginManager()->callEvent($ev = new event\server\ServerShutdownEvent());
-        if ($ev->isCancelled(true)) return;
+        if ($ev->isCancelled()) return;
 
         $this->isRunning = false;
         if ($msg != "") {
