@@ -2950,9 +2950,19 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
                 }
                 $this->craftingType = 0;
                 $commandText = $packet->command;
+                $array = [];
                 if ($packet->args !== null) {
-                    foreach ($packet->args as $arg) { //command ordering will be an issue
-                        $commandText .= " " . $arg;
+                    foreach ($packet->args as $arg) {
+                        if(isset($arg->rules[0]->name)){
+                            $value = $arg->rules[0]->value;
+                        }elseif(is_string($arg) || is_int($arg)){
+                        	$value = $arg;
+                        }
+                        array_push($array, " ".$value);
+                    }
+                    $array = array_reverse($array);
+                    foreach ($array as $arg) {
+                        $commandText .= $arg;
                     }
                 }
                 $this->server->getPluginManager()->callEvent($ev = new PlayerCommandPreprocessEvent($this, "/" . $commandText));
