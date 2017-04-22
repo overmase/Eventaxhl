@@ -18,7 +18,7 @@ if [ $? -ne 0 ]; then
 	exit 1
 fi
 
-cp -r ./tests/plugins/PocketMine-DevTools plugins
+cp -r ./build/plugins/PocketMine-DevTools plugins
 "$PHP_BINARY" ./plugins/PocketMine-DevTools/src/DevTools/ConsoleScript.php --make ./plugins/PocketMine-DevTools --relative ./plugins/PocketMine-DevTools --out ./plugins/DevTools.phar
 rm -rf ./plugins/PocketMine-DevTools
 
