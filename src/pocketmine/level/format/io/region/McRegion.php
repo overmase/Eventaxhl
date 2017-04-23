@@ -129,7 +129,7 @@ class McRegion extends BaseLevelProvider
     {
         $nbt = new NBT(NBT::BIG_ENDIAN);
         try {
-            $nbt->readCompressed($data, ZLIB_ENCODING_DEFLATE);
+            $nbt->readCompressed($data);
 
             $chunk = $nbt->getData();
 

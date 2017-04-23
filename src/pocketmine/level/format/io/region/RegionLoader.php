@@ -25,6 +25,7 @@ namespace pocketmine\level\format\io\region;
 
 use pocketmine\level\format\Chunk;
 use pocketmine\level\format\io\ChunkException;
+use pocketmine\level\format\io\LevelProvider;
 use pocketmine\utils\Binary;
 use pocketmine\utils\MainLogger;
 
