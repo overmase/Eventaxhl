@@ -1943,13 +1943,13 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
     protected function processLogin()
     {
         if (!$this->server->isWhitelisted(strtolower($this->getName()))) {
-            $this->close($this->getLeaveMessage(), "Server is white-listed");
+            $this->close($this->getLeaveMessage(), TextFormat::RED . "Сервер на тех. работах!");
 
             return;
         } elseif ($this->server->getNameBans()->isBanned(strtolower($this->getName())) or $this->server->getIPBans()->isBanned($this->getAddress()) or $this->server->getCIDBans()->isBanned($this->randomClientId)) {
             $banentry = new BanEntry($this->getName());
             $reason = $banentry->getReason();
-            $this->close($this->getLeaveMessage(), TextFormat::RED . "You are banned. Reason: \n" . $reason);
+            $this->close($this->getLeaveMessage(), TextFormat::RED . "Вы забанееы. Причина: \n" . $reason);
 
             return;
         }
@@ -2953,12 +2953,12 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
                 $array = [];
                 if ($packet->args !== null) {
                     foreach ($packet->args as $arg) {
-                        if(isset($arg->rules[0]->name)){
+                        if (isset($arg->rules[0]->name)) {
                             $value = $arg->rules[0]->value;
-                        }elseif(is_string($arg) || is_int($arg)){
-                        	$value = $arg;
+                        } elseif (is_string($arg) || is_int($arg)) {
+                            $value = $arg;
                         }
-                        array_push($array, " ".$value);
+                        array_push($array, " " . $value);
                     }
                     $array = array_reverse($array);
                     foreach ($array as $arg) {
