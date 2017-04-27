@@ -1949,7 +1949,7 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
         } elseif ($this->server->getNameBans()->isBanned(strtolower($this->getName())) or $this->server->getIPBans()->isBanned($this->getAddress()) or $this->server->getCIDBans()->isBanned($this->randomClientId)) {
             $banentry = new BanEntry($this->getName());
             $reason = $banentry->getReason();
-            $this->close($this->getLeaveMessage(), TextFormat::RED . "Вы забанееы. Причина: \n" . $reason);
+            $this->close($this->getLeaveMessage(), TextFormat::RED . "Вы забанены. Причина: \n" . $reason);
 
             return;
         }
