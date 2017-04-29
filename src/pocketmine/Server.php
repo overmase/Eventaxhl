@@ -301,7 +301,6 @@ class Server
     public $json_cmd = false;
     public $endEnabled = true;
     public $endName = "end";
-    public $removeLoadingScreen = true;
     public $outdated_server = "";
     public $outdated_client = "";
     public $redstoneEnabled = false;
@@ -1543,7 +1542,6 @@ class Server
         $this->netherName = $this->getAdvancedProperty("level.level-name", "nether");
         $this->endEnabled = $this->getAdvancedProperty("level.allow-end", false);
         $this->endName = $this->getAdvancedProperty("level.end-level-name", "end");
-        $this->removeLoadingScreen = $this->getAdvancedProperty("level.remove-loading-screen", true);
         $this->weatherRandomDurationMin = $this->getAdvancedProperty("level.weather-random-duration-min", 6000);
         $this->weatherRandomDurationMax = $this->getAdvancedProperty("level.weather-random-duration-max", 12000);
         $this->lightningTime = $this->getAdvancedProperty("level.lightning-time", 200);
