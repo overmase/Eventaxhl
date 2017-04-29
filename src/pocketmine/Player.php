@@ -805,13 +805,11 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
                 Level::getXZ($index, $X, $Z);
                 $this->unloadChunk($X, $Z, $oldLevel);
             }
-
             $this->usedChunks = [];
             $pk = new SetTimePacket();
             $pk->time = $this->level->getTime();
             $pk->started = $this->level->stopTime == false;
             $this->dataPacket($pk);
-
             if ($targetLevel->getDimension() != $oldLevel->getDimension()) {
                 $pk = new ChangeDimensionPacket();
                 $pk->dimension = $targetLevel->getDimension();
@@ -820,9 +818,21 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
                 $pk->z = $this->z;
                 $this->dataPacket($pk);
                 $this->shouldSendStatus = true;
+                if ($targetLevel->getDimension() === ChangeDimensionPacket::DIMENSION_NORMAL) {
+                    $pk = new PlayStatusPacket();
+                    $pk->status = PlayStatusPacket::PLAYER_SPAWN;
+                    $this->dataPacket($pk);
+                } else if ($targetLevel->getDimension() === ChangeDimensionPacket::DIMENSION_NETHER) {
+                    $pk = new PlayStatusPacket();
+                    $pk->status = PlayStatusPacket::PLAYER_SPAWN;
+                    $this->dataPacket($pk);
+                } else if ($targetLevel->getDimension() === ChangeDimensionPacket::DIMENSION_END) {
+                    $pk = new PlayStatusPacket();
+                    $pk->status = PlayStatusPacket::PLAYER_SPAWN;
+                    $this->dataPacket($pk);
+                }
             }
             $targetLevel->getWeather()->sendWeather($this);
-
             if ($this->spawned) {
                 $this->spawnToAll();
             }
@@ -1639,19 +1649,9 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
                         if ($this->isInsideOfEndPortal()) {
                             if ($this->getLevel() === $this->server->getDefaultLevel()) {
                                 $this->teleport($this->server->endName->getSafeSpawn());
-                                if ($this->server->removeLoadingScreen) {
-                                    $pk = new PlayStatusPacket();
-                                    $pk->status = 3;
-                                    $this->dataPacket($pk);
-                                }
 
                             } else {
                                 $this->teleport($this->server->getDefaultLevel()->getSafeSpawn());
-                                if ($this->server->removeLoadingScreen) {
-                                    $pk = new PlayStatusPacket();
-                                    $pk->status = 3;
-                                    $this->dataPacket($pk);
-                                }
                             }
                         }
                     }
@@ -1793,11 +1793,6 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
                             $this->fromPos->x = ((int)$this->fromPos->x) + 0.5;
                             $this->fromPos->z = ((int)$this->fromPos->z) + 0.5;
                             $this->teleport($this->shouldResPos = $netherLevel->getSafeSpawn());
-                            if ($this->server->removeLoadingScreen) {
-                                $pk = new PlayStatusPacket();
-                                $pk->status = 3;
-                                $this->dataPacket($pk);
-                            }
                         } elseif ($this->fromPos instanceof Position) {
                             if (!($this->getLevel()->isChunkLoaded($this->fromPos->x, $this->fromPos->z))) {
                                 $this->getLevel()->loadChunk($this->fromPos->x, $this->fromPos->z);
@@ -2630,10 +2625,6 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
                         if ($this->server->netherEnabled) {
                             if ($this->level === $this->server->getLevelByName($this->server->netherName)) {
                                 $this->teleport($pos = $this->server->getDefaultLevel()->getSafeSpawn());
-                                /*$pk = new PlayStatusPacket();
-                                $pk->status = PlayStatusPacket::PLAYER_SPAWN;
-                                $this->dataPacket($pk);*/
-                                //This will fix the world boot screen, but it can cause problems for players when generating the world
                             }
                         }
 
