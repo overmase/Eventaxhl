@@ -35,7 +35,7 @@ class DifficultyCommand extends VanillaCommand{
 		parent::__construct(
 			$name,
 			"%pocketmine.command.difficulty.description",
-			"%pocketmine.command.difficulty.usage"
+			"%commands.difficulty.usage"
 		);
 		$this->setPermission("pocketmine.command.difficulty");
 	}

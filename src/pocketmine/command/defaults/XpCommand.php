@@ -34,7 +34,7 @@ class XpCommand extends VanillaCommand{
 		parent::__construct(
 			$name,
 			"%pocketmine.command.xp.description",
-			"%pocketmine.command.xp.usage"
+			"%commands.xp.usage"
 		);
 		$this->setPermission("pocketmine.command.xp");
 	}
