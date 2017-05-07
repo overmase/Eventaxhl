@@ -32,7 +32,7 @@ class SaveCommand extends VanillaCommand{
 		parent::__construct(
 			$name,
 			"%pocketmine.command.save.description",
-			"%commands.save.usage"
+			"%pocketmine.command.save.usage"
 		);
 		$this->setPermission("pocketmine.command.save.perform");
 	}
@@ -42,7 +42,7 @@ class SaveCommand extends VanillaCommand{
 			return true;
 		}
 
-		Command::broadcastCommandMessage($sender, new TranslationContainer("commands.save.start"));
+		Command::broadcastCommandMessage($sender, new TranslationContainer("pocketmine.command.save.start"));
 
 		foreach($sender->getServer()->getOnlinePlayers() as $player){
 			$player->save();
@@ -52,7 +52,7 @@ class SaveCommand extends VanillaCommand{
 			$level->save(true);
 		}
 
-		Command::broadcastCommandMessage($sender, new TranslationContainer("commands.save.success"));
+		Command::broadcastCommandMessage($sender, new TranslationContainer("pocketmine.command.save.disabled"));
 
 		return true;
 	}

@@ -57,7 +57,7 @@ class TimeCommand extends VanillaCommand{
 				$level->startTime();
 				$level->checkTime();
 			}
-			Command::broadcastCommandMessage($sender, "Restarted the time");
+			Command::broadcastCommandMessage($sender, "Перезапущено время");
 			return true;
 		}elseif($args[0] === "stop"){
 			if(!$sender->hasPermission("pocketmine.command.time.stop")){
@@ -70,7 +70,7 @@ class TimeCommand extends VanillaCommand{
 				$level->stopTime();
 				$level->checkTime();
 			}
-			Command::broadcastCommandMessage($sender, "Stopped the time");
+			Command::broadcastCommandMessage($sender, "Время остановилось");
 			return true;
 		}elseif($args[0] === "query"){
 			if(!$sender->hasPermission("pocketmine.command.time.query")){
@@ -83,7 +83,7 @@ class TimeCommand extends VanillaCommand{
 			}else{
 				$level = $sender->getServer()->getDefaultLevel();
 			}
-			$sender->sendMessage(new TranslationContainer("commands.time.query", [$level->getTime()]));
+			$sender->sendMessage(new TranslationContainer("pocketmine.command.time.query", [$level->getTime()]));
 			return true;
 		}
 
@@ -114,7 +114,7 @@ class TimeCommand extends VanillaCommand{
 				$level->setTime($value);
 				$level->checkTime();
 			}
-			Command::broadcastCommandMessage($sender, new TranslationContainer("commands.time.set", [$value]));
+			Command::broadcastCommandMessage($sender, new TranslationContainer("pocketmine.command.time.set", [$value]));
 		}elseif($args[0] === "add"){
 			if(!$sender->hasPermission("pocketmine.command.time.add")){
 				$sender->sendMessage(new TranslationContainer(TextFormat::RED . "%commands.generic.permission"));
@@ -128,7 +128,7 @@ class TimeCommand extends VanillaCommand{
 				$level->setTime($level->getTime() + $value);
 				$level->checkTime();
 			}
-			Command::broadcastCommandMessage($sender, new TranslationContainer("commands.time.added", [$value]));
+			Command::broadcastCommandMessage($sender, new TranslationContainer("pocketmine.command.time.added", [$value]));
 		}else{
 			$sender->sendMessage(new TranslationContainer("commands.generic.usage", [$this->usageMessage]));
 		}

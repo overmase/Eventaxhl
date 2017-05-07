@@ -33,7 +33,7 @@ class BanIpByNameCommand extends VanillaCommand{
 		parent::__construct(
 			$name,
 			"%pocketmine.command.banipbyname.description",
-			"%commands.banipbyname.usage"
+			"%pocketmine.command.banipbyname.usage"
 		);
 		$this->setPermission("pocketmine.command.banipbyname");
 	}
@@ -61,7 +61,7 @@ class BanIpByNameCommand extends VanillaCommand{
 			$player->kick($reason !== "" ? "Banned by admin. Reason:" . $reason : "Banned by admin.");
 		}
 
-		Command::broadcastCommandMessage($sender, new TranslationContainer("%commands.banipbyname.success", [$player !== \null ? $player->getName() : $name]));
+		Command::broadcastCommandMessage($sender, new TranslationContainer("%pocketmine.command.banipbyname.success", [$player !== \null ? $player->getName() : $name]));
 
 		return true;
 	}

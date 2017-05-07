@@ -33,7 +33,7 @@ class KickCommand extends VanillaCommand{
 		parent::__construct(
 			$name,
 			"%pocketmine.command.kick.description",
-			"%commands.kick.usage"
+			"%pocketmine.command.kick.usage"
 		);
 		$this->setPermission("pocketmine.command.kick");
 	}
@@ -55,9 +55,9 @@ class KickCommand extends VanillaCommand{
 		if(($player = $sender->getServer()->getPlayer($name)) instanceof Player){
 			$player->kick($reason);
 			if(strlen($reason) >= 1){
-				Command::broadcastCommandMessage($sender, new TranslationContainer("commands.kick.success.reason", [$player->getName(), $reason]));
+				Command::broadcastCommandMessage($sender, new TranslationContainer("pocketmine.command.kick.success.reason", [$player->getName(), $reason]));
 			}else{
-				Command::broadcastCommandMessage($sender, new TranslationContainer("commands.kick.success", [$player->getName()]));
+				Command::broadcastCommandMessage($sender, new TranslationContainer("pocketmine.command.kick.success", [$player->getName()]));
 			}
 		}else{
 			$sender->sendMessage(new TranslationContainer(TextFormat::RED . "%commands.generic.player.notFound"));

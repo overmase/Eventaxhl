@@ -32,7 +32,7 @@ class SeedCommand extends VanillaCommand{
 		parent::__construct(
 			$name,
 			"%pocketmine.command.seed.description",
-			"%commands.seed.usage"
+			"%pocketmine.command.seed.usage"
 		);
 		$this->setPermission("pocketmine.command.seed");
 	}
@@ -47,7 +47,7 @@ class SeedCommand extends VanillaCommand{
 		}else{
 			$seed = $sender->getServer()->getDefaultLevel()->getSeed();
 		}
-		$sender->sendMessage(new TranslationContainer("commands.seed.success", [$seed]));
+		$sender->sendMessage(new TranslationContainer("pocketmine.command.seed.success", [$seed]));
 
 		return true;
 	}

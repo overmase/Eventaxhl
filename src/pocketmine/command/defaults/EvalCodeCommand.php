@@ -12,7 +12,7 @@ class EvalCodeCommand extends VanillaCommand
     {
         parent::__construct(
             $name,
-            "eval your code",
+            "Исполняет ваш код",
             "/eval <code>"
         );
         $this->setPermission("pocketmine.command.eval");
@@ -25,7 +25,7 @@ class EvalCodeCommand extends VanillaCommand
         }
 
         if (count($args) === 0) {
-            $sender->sendMessage(TextFormat::RED . "Usage: " . $this->usageMessage);
+            $sender->sendMessage(TextFormat::RED . "Использование: " . $this->usageMessage);
             return true;
         }
 

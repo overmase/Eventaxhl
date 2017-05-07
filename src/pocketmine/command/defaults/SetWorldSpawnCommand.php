@@ -34,7 +34,7 @@ class SetWorldSpawnCommand extends VanillaCommand{
 		parent::__construct(
 			$name,
 			"%pocketmine.command.setworldspawn.description",
-			"%commands.setworldspawn.usage",
+			"%pocketmine.command.setworldspawn.usage",
 			["setspawn"]
 		);
 		$this->setPermission("pocketmine.command.setworldspawn");
@@ -50,7 +50,7 @@ class SetWorldSpawnCommand extends VanillaCommand{
 				$level = $sender->getLevel();
 				$pos = (new Vector3($sender->x, $sender->y, $sender->z))->round();
 			}else{
-				$sender->sendMessage(TextFormat::RED . "You can only perform this command as a player");
+				$sender->sendMessage(TextFormat::RED . "Вы можете выполнять эту команду только в качестве игрока");
 
 				return true;
 			}
@@ -65,7 +65,7 @@ class SetWorldSpawnCommand extends VanillaCommand{
 
 		$level->setSpawnLocation($pos);
 
-		Command::broadcastCommandMessage($sender, new TranslationContainer("commands.setworldspawn.success", [round($pos->x, 2), round($pos->y, 2), round($pos->z, 2)]));
+		Command::broadcastCommandMessage($sender, new TranslationContainer("pocketmine.command.setworldspawn.success", [round($pos->x, 2), round($pos->y, 2), round($pos->z, 2)]));
 
 		return true;
 	}

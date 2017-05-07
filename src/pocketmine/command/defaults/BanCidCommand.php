@@ -13,7 +13,7 @@ class BanCidCommand extends VanillaCommand{
 		parent::__construct(
 			$name,
 			"%pocketmine.command.bancid.description",
-			"%commands.bancid.usage"
+			"%pocketmine.command.bancid.usage"
 		);
 		$this->setPermission("pocketmine.command.bancid");
 	}
@@ -44,7 +44,7 @@ class BanCidCommand extends VanillaCommand{
 			}
 		}
 
-		Command::broadcastCommandMessage($sender, new TranslationContainer("%commands.bancid.success", [$player !== null ? $player->getName() : $cid]));
+		Command::broadcastCommandMessage($sender, new TranslationContainer("%pocketmine.command.bancid.success", [$player !== null ? $player->getName() : $cid]));
 
 		return true;
 	}

@@ -70,7 +70,7 @@ class KillCommand extends VanillaCommand{
 				$player->setLastDamageCause($ev);
 				$player->setHealth(0);
 
-				Command::broadcastCommandMessage($sender, new TranslationContainer("commands.kill.successful", [$player->getName()]));
+				Command::broadcastCommandMessage($sender, new TranslationContainer("pocketmine.command.kill.successful", [$player->getName()]));
 			}else{
 				$sender->sendMessage(new TranslationContainer(TextFormat::RED . "%commands.generic.player.notFound"));
 			}
@@ -93,7 +93,7 @@ class KillCommand extends VanillaCommand{
 
 			$sender->setLastDamageCause($ev);
 			$sender->setHealth(0);
-			$sender->sendMessage(new TranslationContainer("commands.kill.successful", [$sender->getName()]));
+			$sender->sendMessage(new TranslationContainer("pocketmine.command.kill.successful", [$sender->getName()]));
 		}else{
 			$sender->sendMessage(new TranslationContainer("commands.generic.usage", [$this->usageMessage]));
 

@@ -33,7 +33,7 @@ class BanEntry
     private $source = "(Unknown)";
     /** @var \DateTime */
     private $expirationDate = null;
-    private $reason = "Banned by an operator.";
+    private $reason = "Вас забанил администратор или модератор, причина не указана.";
 
     public function __construct($name)
     {

@@ -30,7 +30,7 @@ class DumpMemoryCommand extends VanillaCommand{
 	public function __construct($name){
 		parent::__construct(
 			$name,
-			"Dumps the memory",
+			"Дамп памяти",
 			"/$name [path]"
 		);
 		$this->setPermission("pocketmine.command.dumpmemory");

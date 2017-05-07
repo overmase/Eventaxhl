@@ -71,7 +71,7 @@ class GiveCommand extends VanillaCommand{
 			}
 
 			if(!($tags instanceof CompoundTag) or $exception !== null){
-				$sender->sendMessage(new TranslationContainer("commands.give.tagError", [$exception !== null ? $exception->getMessage() : "Invalid tag conversion"]));
+				$sender->sendMessage(new TranslationContainer("pocketmine.command.give.tagError", [$exception !== null ? $exception->getMessage() : "Недопустимое преобразование тегов"]));
 				return true;
 			}
 
@@ -80,7 +80,7 @@ class GiveCommand extends VanillaCommand{
 
 		if($player instanceof Player){
 			if($item->getId() === 0){
-				$sender->sendMessage(new TranslationContainer(TextFormat::RED . "%commands.give.item.notFound", [$args[1]]));
+				$sender->sendMessage(new TranslationContainer(TextFormat::RED . "%pocketmine.command.give.item.notFound", [$args[1]]));
 
 				return true;
 			}
@@ -93,7 +93,7 @@ class GiveCommand extends VanillaCommand{
 			return true;
 		}
 
-		Command::broadcastCommandMessage($sender, new TranslationContainer("%commands.give.success", [
+		Command::broadcastCommandMessage($sender, new TranslationContainer("%pocketmine.command.give.success", [
 			$item->getName() . " (" . $item->getId() . ":" . $item->getDamage() . ")",
 			(string) $item->getCount(),
 			$player->getName()

@@ -34,7 +34,7 @@ class EffectCommand extends VanillaCommand{
 		parent::__construct(
 			$name,
 			"%pocketmine.command.effect.description",
-			"%commands.effect.usage"
+			"%pocketmine.command.effect.usage"
 		);
 		$this->setPermission("pocketmine.command.effect;pocketmine.command.effect.other");
 	}
@@ -57,7 +57,7 @@ class EffectCommand extends VanillaCommand{
 		}
 		
 		if($player->getName()!=$sender->getName() && !$sender->hasPermission("pocketmine.command.effect.other")){
-			$sender->sendMessage("You don't have permission to give effect to other player .");
+			$sender->sendMessage("У вас нет разрешения на наложнение эффектов на другого игрока.");
 			return true;
 		}
 
@@ -66,7 +66,7 @@ class EffectCommand extends VanillaCommand{
 				$player->removeEffect($effect->getId());
 			}
 
-			$sender->sendMessage(new TranslationContainer("commands.effect.success.removed.all", [$player->getDisplayName()]));
+			$sender->sendMessage(new TranslationContainer("pocketmine.command.effect.success.removed.all", [$player->getDisplayName()]));
 			return true;
 		}
 
@@ -77,7 +77,7 @@ class EffectCommand extends VanillaCommand{
 		}
 
 		if($effect === null){
-			$sender->sendMessage(new TranslationContainer(TextFormat::RED . "%commands.effect.notFound", [(string) $args[1]]));
+			$sender->sendMessage(new TranslationContainer(TextFormat::RED . "%pocketmine.command.effect.notFound", [(string) $args[1]]));
 			return true;
 		}
 
@@ -107,21 +107,21 @@ class EffectCommand extends VanillaCommand{
 		if($duration === 0){
 			if(!$player->hasEffect($effect->getId())){
 				if(count($player->getEffects()) === 0){
-					$sender->sendMessage(new TranslationContainer("commands.effect.failure.notActive.all", [$player->getDisplayName()]));
+					$sender->sendMessage(new TranslationContainer("pocketmine.command.effect.failure.notActive.all", [$player->getDisplayName()]));
 				}else{
-					$sender->sendMessage(new TranslationContainer("commands.effect.failure.notActive", [$effect->getName(), $player->getDisplayName()]));
+					$sender->sendMessage(new TranslationContainer("pocketmine.command.effect.failure.notActive", [$effect->getName(), $player->getDisplayName()]));
 				}
 				return true;
 			}
 
 			if ($player->removeEffect($effect->getId())) {
-				$sender->sendMessage(new TranslationContainer("commands.effect.success.removed", [$effect->getName(), $player->getDisplayName()]));
+				$sender->sendMessage(new TranslationContainer("pocketmine.command.effect.success.removed", [$effect->getName(), $player->getDisplayName()]));
 			}
 		}else{
 			$effect->setDuration($duration)->setAmplifier($amplification);
 
 			if ($player->addEffect($effect)) {
-				self::broadcastCommandMessage($sender, new TranslationContainer("%commands.effect.success", [$effect->getName(), $effect->getId(), $effect->getAmplifier(), $player->getDisplayName(), $effect->getDuration() / 20]));
+				self::broadcastCommandMessage($sender, new TranslationContainer("%pocketmine.command.effect.success", [$effect->getName(), $effect->getId(), $effect->getAmplifier(), $player->getDisplayName(), $effect->getDuration() / 20]));
 			}
 		}
 

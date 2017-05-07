@@ -32,7 +32,7 @@ class BanListCommand extends VanillaCommand{
 		parent::__construct(
 			$name,
 			"%pocketmine.command.banlist.description",
-			"%commands.banlist.usage"
+			"%pocketmine.command.banlist.usage"
 		);
 		$this->setPermission("pocketmine.command.ban.list");
 	}
@@ -48,15 +48,15 @@ class BanListCommand extends VanillaCommand{
 		switch($args[0]){
 			case "ips":
 				$list = $sender->getServer()->getIPBans();	
-				$title = "commands.banlist.ips";
+				$title = "pocketmine.command.banlist.ips";
 				break;
 			case "cids":
 				$list = $list = $sender->getServer()->getCIDBans(); 
-				$title = "commands.banlist.cids";
+				$title = "pocketmine.command.banlist.cids";
 				break;
 			case "players":
 				$list = $sender->getServer()->getNameBans();
-				$title = "commands.banlist.players";
+				$title = "pocketmine.command.banlist.players";
 				break;
 			default:
 				$sender->sendMessage(new TranslationContainer("commands.generic.usage", [$this->usageMessage]));

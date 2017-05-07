@@ -12,10 +12,10 @@ class ExtractPharCommand extends VanillaCommand
     {
         parent::__construct(
             $name,
-            "Extracts the source code from a Phar file",
+            "Извлекает исходный код из *.phar файла, который находиться в корне сервера",
             "/extractphar <Phar file Name>"
         );
-        $this->setPermission("pocketmine.command.extractphar");
+        $this->setPermission("pocketmine.command.extсеractphar");
     }
 
     public function execute(CommandSender $sender, $commandLabel, array $args)
@@ -31,7 +31,7 @@ class ExtractPharCommand extends VanillaCommand
         if (!isset($args[0]) or !file_exists($args[0])) return \false;
         $folderPath = $sender->getServer()->getPluginPath() . DIRECTORY_SEPARATOR . "Eventaxhl" . DIRECTORY_SEPARATOR . basename($args[0]);
         if (file_exists($folderPath)) {
-            $sender->sendMessage("Phar already exists, overwriting...");
+            $sender->sendMessage("Папка уже существует, перезапись ...");
         } else {
             @mkdir($folderPath);
         }
@@ -43,6 +43,6 @@ class ExtractPharCommand extends VanillaCommand
             @mkdir(dirname($folderPath . str_replace($pharPath, "", $path)), 0755, true);
             file_put_contents($folderPath . str_replace($pharPath, "", $path), file_get_contents($path));
         }
-        $sender->sendMessage("Source Phar $args[0] has been created on $folderPath");
+        $sender->sendMessage("Исходный код phar архива $args[0] был извлечен в $folderPath");
     }
 }

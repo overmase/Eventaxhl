@@ -35,7 +35,7 @@ class DifficultyCommand extends VanillaCommand{
 		parent::__construct(
 			$name,
 			"%pocketmine.command.difficulty.description",
-			"%commands.difficulty.usage"
+			"%pocketmine.command.difficulty.usage"
 		);
 		$this->setPermission("pocketmine.command.difficulty");
 	}
@@ -64,7 +64,7 @@ class DifficultyCommand extends VanillaCommand{
 			$pk->difficulty = $sender->getServer()->getDifficulty();
 			$sender->getServer()->broadcastPacket($sender->getServer()->getOnlinePlayers(), $pk);
 
-			Command::broadcastCommandMessage($sender, new TranslationContainer("commands.difficulty.success", [$difficulty]));
+			Command::broadcastCommandMessage($sender, new TranslationContainer("pocketmine.command.difficulty.success", [$difficulty]));
 		}else{
 			$sender->sendMessage(new TranslationContainer("commands.generic.usage", [$this->usageMessage]));
 

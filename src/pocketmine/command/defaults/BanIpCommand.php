@@ -33,7 +33,7 @@ class BanIpCommand extends VanillaCommand{
 		parent::__construct(
 			$name,
 			"%pocketmine.command.banip.description",
-			"%commands.banip.usage"
+			"%pocketmine.command.banip.usage"
 		);
 		$this->setPermission("pocketmine.command.ban.ip");
 	}
@@ -55,14 +55,14 @@ class BanIpCommand extends VanillaCommand{
 		if(preg_match("/^([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.([01]?\\d\\d?|2[0-4]\\d|25[0-5])$/", $value)){
 			$this->processIPBan($value, $sender, $reason);
 
-			Command::broadcastCommandMessage($sender, new TranslationContainer("commands.banip.success", [$value]));
+			Command::broadcastCommandMessage($sender, new TranslationContainer("pocketmine.command.banip.success", [$value]));
 		}else{
 			if(($player = $sender->getServer()->getPlayer($value)) instanceof Player){
 				$this->processIPBan($player->getAddress(), $sender, $reason);
 
-				Command::broadcastCommandMessage($sender, new TranslationContainer("commands.banip.success.players", [$player->getAddress(), $player->getName()]));
+				Command::broadcastCommandMessage($sender, new TranslationContainer("pocketmine.command.banip.success.players", [$player->getAddress(), $player->getName()]));
 			}else{
-				$sender->sendMessage(new TranslationContainer("commands.banip.invalid"));
+				$sender->sendMessage(new TranslationContainer("pocketmine.command.banip.invalid"));
 
 				return false;
 			}

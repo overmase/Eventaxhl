@@ -32,7 +32,7 @@ class DefaultGamemodeCommand extends VanillaCommand{
 		parent::__construct(
 			$name,
 			"%pocketmine.command.defaultgamemode.description",
-			"%commands.defaultgamemode.usage"
+			"%pocketmine.command.defaultgamemode.usage"
 		);
 		$this->setPermission("pocketmine.command.defaultgamemode");
 	}
@@ -52,9 +52,9 @@ class DefaultGamemodeCommand extends VanillaCommand{
 
 		if($gameMode !== -1){
 			$sender->getServer()->setConfigInt("gamemode", $gameMode);
-			$sender->sendMessage(new TranslationContainer("commands.defaultgamemode.success", [Server::getGamemodeString($gameMode)]));
+			$sender->sendMessage(new TranslationContainer("pocketmine.command.defaultgamemode.success", [Server::getGamemodeString($gameMode)]));
 		}else{
-			$sender->sendMessage("You entered an unknown gamemode");
+			$sender->sendMessage("Вы ввели неизвестный режим игры");
 		}
 
 		return true;

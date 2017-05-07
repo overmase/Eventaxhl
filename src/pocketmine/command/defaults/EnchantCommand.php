@@ -24,6 +24,7 @@ namespace pocketmine\command\defaults;
 
 use pocketmine\command\CommandSender;
 
+
 use pocketmine\event\TranslationContainer;
 use pocketmine\item\enchantment\Enchantment;
 use pocketmine\utils\TextFormat;
@@ -35,7 +36,7 @@ class EnchantCommand extends VanillaCommand{
 		parent::__construct(
 			$name,
 			"%pocketmine.command.enchant.description",
-			"%commands.enchant.usage"
+			"%pocketmine.command.enchant.usage"
 		);
 		$this->setPermission("pocketmine.command.enchant");
 	}
@@ -64,7 +65,7 @@ class EnchantCommand extends VanillaCommand{
 		if($enchantment->getId() === Enchantment::TYPE_INVALID){
 			$enchantment = Enchantment::getEnchantmentByName($enchantId);
 			if($enchantment->getId() === Enchantment::TYPE_INVALID){
-	    		$sender->sendMessage(new TranslationContainer("commands.enchant.notFound", [$enchantment->getId()]));
+	    		$sender->sendMessage(new TranslationContainer("pocketmine.command.enchant.notFound", [$enchantment->getId()]));
 				return true;
 			}
 		}
@@ -79,12 +80,12 @@ class EnchantCommand extends VanillaCommand{
 		$item = $player->getInventory()->getItemInHand();
 
 		if($item->getId() <= 0){
-			$sender->sendMessage(new TranslationContainer("commands.enchant.noItem"));
+			$sender->sendMessage(new TranslationContainer("pocketmine.command.enchant.noItem"));
 			return true;
 		}
 		
 		if(Enchantment::getEnchantAbility($item) === 0){
-			$sender->sendMessage(new TranslationContainer(TextFormat::RED . "%commands.enchant.cantEnchant"));
+			$sender->sendMessage(new TranslationContainer(TextFormat::RED . "%pocketmine.command.enchant.cantEnchant"));
 			return true;
 		}
 
@@ -92,7 +93,7 @@ class EnchantCommand extends VanillaCommand{
 		$player->getInventory()->setItemInHand($item);
 
 
-		self::broadcastCommandMessage($sender, new TranslationContainer("%commands.enchant.success"));
+		self::broadcastCommandMessage($sender, new TranslationContainer("%pocketmine.command.enchant.success"));
 		return true;
 	}
 }

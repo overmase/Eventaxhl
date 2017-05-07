@@ -32,7 +32,7 @@ class SaveOffCommand extends VanillaCommand{
 		parent::__construct(
 			$name,
 			"%pocketmine.command.saveoff.description",
-			"%commands.save-off.usage"
+			"%pocketmine.command.saveoff.usage"
 		);
 		$this->setPermission("pocketmine.command.save.disable");
 	}
@@ -44,7 +44,7 @@ class SaveOffCommand extends VanillaCommand{
 
 		$sender->getServer()->setAutoSave(false);
 
-		Command::broadcastCommandMessage($sender, new TranslationContainer("commands.save.disabled"));
+		Command::broadcastCommandMessage($sender, new TranslationContainer(""));
 
 		return true;
 	}

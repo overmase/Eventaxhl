@@ -32,7 +32,7 @@ class BanCidByNameCommand extends VanillaCommand{
 		parent::__construct(
 			$name,
 			"%pocketmine.command.bancidbyname.description",
-			"%commands.bancidbyname.usage"
+			"%pocketmine.command.bancidbyname.usage"
 		);
 		$this->setPermission("pocketmine.command.bancidbyname");
 	}
@@ -58,7 +58,7 @@ class BanCidByNameCommand extends VanillaCommand{
 
 		$target->kick($reason !== "" ? "Banned by admin. Reason:" . $reason : "Banned by admin.");
 
-		Command::broadcastCommandMessage($sender, new TranslationContainer("%commands.bancidbyname.success", [$target !== null ? $target->getName() : $name]));
+		Command::broadcastCommandMessage($sender, new TranslationContainer("%pocketmine.command.bancidbyname.success", [$target !== null ? $target->getName() : $name]));
 
 		return true;
 	}

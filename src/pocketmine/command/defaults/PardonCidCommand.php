@@ -32,7 +32,7 @@ class PardonCidCommand extends VanillaCommand{
 		parent::__construct(
 			$name,
 			"%pocketmine.command.unban.cid.description",
-			"%commands.unban.cid.usage"
+			"%pocketmine.command.unban.cid.usage"
 		);
 		$this->setPermission("pocketmine.command.pardoncid");
 	}
@@ -49,7 +49,7 @@ class PardonCidCommand extends VanillaCommand{
 
 		$sender->getServer()->getCIDBans()->remove($args[0]);
 
-		Command::broadcastCommandMessage($sender, new TranslationContainer("commands.unbancid.success", [$args[0]]));
+		Command::broadcastCommandMessage($sender, new TranslationContainer("pocketmine.command.unbancid.success", [$args[0]]));
 
 		return true;
 	}

@@ -32,7 +32,7 @@ class SaveOnCommand extends VanillaCommand{
 		parent::__construct(
 			$name,
 			"%pocketmine.command.saveon.description",
-			"%commands.save-on.usage"
+			"%pocketmine.command.saveon.usage"
 		);
 		$this->setPermission("pocketmine.command.save.enable");
 	}
@@ -44,7 +44,7 @@ class SaveOnCommand extends VanillaCommand{
 
 		$sender->getServer()->setAutoSave(true);
 
-		Command::broadcastCommandMessage($sender, new TranslationContainer("commands.save.enabled"));
+		Command::broadcastCommandMessage($sender, new TranslationContainer("pocketmine.command.save.enabled"));
 
 		return true;
 	}

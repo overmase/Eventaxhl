@@ -101,12 +101,12 @@ class ParticleCommand extends VanillaCommand{
 		$particle = $this->getParticle($name, $pos, $xd, $yd, $zd, $data);
 
 		if($particle === null){
-			$sender->sendMessage(new TranslationContainer(TextFormat::RED . "%commands.particle.notFound", [$name]));
+			$sender->sendMessage(new TranslationContainer(TextFormat::RED . "%pocketmine.command.particle.notFound", [$name]));
 			return true;
 		}
 
 
-		$sender->sendMessage(new TranslationContainer("commands.particle.success", [$name, $count]));
+		$sender->sendMessage(new TranslationContainer("pocketmine.command.particle.success", [$name, $count]));
 
 		$random = new Random((int) (microtime(true) * 1000) + mt_rand());
 
