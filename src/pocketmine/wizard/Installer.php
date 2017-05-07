@@ -26,6 +26,7 @@
 
 namespace pocketmine\wizard;
 
+use pocketmine\lang\BaseLang;
 use pocketmine\utils\Config;
 use pocketmine\utils\Utils;
 
@@ -53,7 +54,14 @@ class Installer
     public function __construct()
     {
         echo "[*] Мастер установки Eventaxhl \n";
+
+        $langs = BaseLang::getLanguageList();
+        if (empty($langs)) {
+            echo "[!] Языковые файлы не найдены\n";
+            return false;
+        }
         echo "[*] Выберите язык:\n";
+
         foreach (InstallerLang::$languages as $short => $native) {
             echo " $native => $short\n";
         }
