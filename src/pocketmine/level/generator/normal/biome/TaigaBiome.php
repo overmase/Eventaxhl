@@ -43,7 +43,7 @@ class TaigaBiome extends SnowyBiome
         $this->addPopulator($mossStone);
 
         $mushroom = new Mushroom();
-        $this->addPopulator($mushroom);
+        //$this->addPopulator($mushroom);
 
         $this->setElevation(63, 83);
 

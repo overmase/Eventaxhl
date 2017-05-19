@@ -51,7 +51,7 @@ class SwampBiome extends GrassyBiome
         $sugarCane->setBaseAmount(2);
         $sugarCane->setRandomAmount(15);
 
-        $this->addPopulator($mushroom);
+        //$this->addPopulator($mushroom);
         $this->addPopulator($lilyPad);
         $this->addPopulator($flower);
         $this->addPopulator($tallGrass);

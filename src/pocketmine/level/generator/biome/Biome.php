@@ -26,6 +26,7 @@ use pocketmine\level\ChunkManager;
 use pocketmine\level\generator\ender\EnderBiome;
 use pocketmine\level\generator\normal\biome\MesaBiome;
 use pocketmine\level\generator\normal\biome\BeachBiome;
+use pocketmine\level\generator\normal\biome\SavannaBiome;
 use pocketmine\level\generator\normal\biome\SwampBiome;
 use pocketmine\level\generator\normal\biome\DesertBiome;
 use pocketmine\level\generator\normal\biome\ForestBiome;
@@ -66,6 +67,7 @@ abstract class Biome
     const FOREST_HILLS = 18;
     const TAIGA_HILLS = 19;
     const SMALL_MOUNTAINS = 20;
+    const JUNGLE = 21;
     const BIRCH_FOREST = 27;
     const BIRCH_FOREST_HILLS = 28;
     const ROOFED_FOREST = 29;
@@ -142,6 +144,8 @@ abstract class Biome
 
         self::register(self::BIRCH_FOREST, new ForestBiome(ForestBiome::TYPE_BIRCH));
         self::register(self::ENDER, new EnderBiome());
+
+        self::register(self::SAVANNA, new SavannaBiome());
     }
 
     /**

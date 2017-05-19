@@ -52,7 +52,7 @@ class SaveCommand extends VanillaCommand{
 			$level->save(true);
 		}
 
-		Command::broadcastCommandMessage($sender, new TranslationContainer("pocketmine.command.save.disabled"));
+		Command::broadcastCommandMessage($sender, new TranslationContainer("pocketmine.command.save.success"));
 
 		return true;
 	}

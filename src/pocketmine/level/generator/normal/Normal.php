@@ -146,6 +146,7 @@ class Normal extends Generator
         $this->selector->addBiome(Biome::getBiome(Biome::BIRCH_FOREST));
         $this->selector->addBiome(Biome::getBiome(Biome::BEACH));
         $this->selector->addBiome(Biome::getBiome(Biome::MESA));
+        $this->selector->addBiome(Biome::getBiome(Biome::SAVANNA));
 
         $this->selector->recalculate();
 

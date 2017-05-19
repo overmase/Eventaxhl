@@ -82,7 +82,7 @@ class SpawnpointCommand extends VanillaCommand{
 				$pos = new Position((int) $sender->x, (int) $sender->y, (int) $sender->z, $sender->getLevel());
 				$target->setSpawn($pos);
 
-				Command::broadcastCommandMessage($sender, new TranslationContainer("command.spawnpoint.success", [$target->getName(), round($pos->x, 2), round($pos->y, 2), round($pos->z, 2)]));
+				Command::broadcastCommandMessage($sender, new TranslationContainer("pocketmine.command.spawnpoint.success", [$target->getName(), round($pos->x, 2), round($pos->y, 2), round($pos->z, 2)]));
 				return true;
 			}else{
 				$sender->sendMessage(TextFormat::RED . "Пожалуйста, предоставьте игрока!");

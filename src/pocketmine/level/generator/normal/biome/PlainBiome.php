@@ -58,7 +58,7 @@ class PlainBiome extends GrassyBiome
         $flower->addType([Block::RED_FLOWER, FlowerBlock::TYPE_PINK_TULIP]);
         $flower->addType([Block::RED_FLOWER, FlowerBlock::TYPE_OXEYE_DAISY]);
 
-        $this->addPopulator($mushroom);
+        //$this->addPopulator($mushroom);
         $this->addPopulator($sugarcane);
         $this->addPopulator($tallGrass);
         $this->addPopulator($flower);
