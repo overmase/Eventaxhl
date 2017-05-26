@@ -26,32 +26,37 @@ use pocketmine\entity\Entity;
 use pocketmine\event\Cancellable;
 use pocketmine\level\Level;
 
-class EntityLevelChangeEvent extends EntityEvent implements Cancellable{
+class EntityLevelChangeEvent extends EntityEvent implements Cancellable
+{
 
-	public static $handlerList = null;
+    public static $handlerList = null;
 
-	private $originLevel;
-	private $targetLevel;
+    private $originLevel;
+    private $targetLevel;
 
-	public function __construct(Entity $entity, Level $originLevel, Level $targetLevel){
-		$this->entity = $entity;
-		$this->originLevel = $originLevel;
-		$this->targetLevel = $targetLevel;
-	}
+    public function __construct(Entity $entity, Level $originLevel, Level $targetLevel)
+    {
+        $this->entity = $entity;
+        $this->originLevel = $originLevel;
+        $this->targetLevel = $targetLevel;
+    }
 
-	public function getOrigin(){
-		return $this->originLevel;
-	}
+    public function getOrigin()
+    {
+        return $this->originLevel;
+    }
 
-	public function getTarget(){
-		return $this->targetLevel;
-	}
+    public function getTarget()
+    {
+        return $this->targetLevel;
+    }
 
-	/**
-	 * @return EventName|string
+    /**
+     * @return string
      */
-	public function getName(){
-		return "EntityLevelChangeEvent";
-	}
+    public function getName()
+    {
+        return "EntityLevelChangeEvent";
+    }
 
 }

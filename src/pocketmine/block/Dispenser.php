@@ -32,112 +32,122 @@ use pocketmine\Player;
 use pocketmine\tile\Dispenser as TileDispenser;
 use pocketmine\tile\Tile;
 
-class Dispenser extends Solid{
+class Dispenser extends Solid
+{
 
-	protected $id = self::DISPENSER;
+    protected $id = self::DISPENSER;
 
-	public function __construct($meta = 0){
-		$this->meta = $meta;
-	}
+    public function __construct($meta = 0)
+    {
+        $this->meta = $meta;
+    }
 
-	public function canBeActivated() : bool {
-		return true;
-	}
+    public function canBeActivated(): bool
+    {
+        return true;
+    }
 
-	public function getHardness() {
-		return 3.5;
-	}
+    public function getHardness()
+    {
+        return 3.5;
+    }
 
-	public function getName() : string{
-		return "Dispenser";
-	}
+    public function getName(): string
+    {
+        return "Dispenser";
+    }
 
-	public function getToolType(){
-		return Tool::TYPE_PICKAXE;
-	}
+    public function getToolType()
+    {
+        return Tool::TYPE_PICKAXE;
+    }
 
-	public function place(Item $item, Block $block, Block $target, $face, $fx, $fy, $fz, Player $player = null){
-		$dispenser = null;
-		if($player instanceof Player){
-			$pitch = $player->getPitch();
-			if(abs($pitch) >= 45){
-				if($pitch < 0) $f = 4;
-				else $f = 5;
-			} else $f = $player->getDirection();
-		} else $f = 0;
-		$faces = [
-			3 => 3,
-			0 => 4,
-			2 => 5,
-			1 => 2,
-			4 => 0,
-			5 => 1
-		];
-		$this->meta = $faces[$f];
+    public function place(Item $item, Block $block, Block $target, $face, $fx, $fy, $fz, Player $player = null)
+    {
+        $dispenser = null;
+        if ($player instanceof Player) {
+            $pitch = $player->getPitch();
+            if (abs($pitch) >= 45) {
+                if ($pitch < 0) $f = 4;
+                else $f = 5;
+            } else $f = $player->getDirection();
+        } else $f = 0;
+        $faces = [
+            3 => 3,
+            0 => 4,
+            2 => 5,
+            1 => 2,
+            4 => 0,
+            5 => 1
+        ];
+        $this->meta = $faces[$f];
 
-		$this->getLevel()->setBlock($block, $this, true, true);
-		$nbt = new CompoundTag("", [
-			new ListTag("Items", []),
-			new StringTag("id", Tile::DISPENSER),
-			new IntTag("x", $this->x),
-			new IntTag("y", $this->y),
-			new IntTag("z", $this->z)
-		]);
-		$nbt->Items->setTagType(NBT::TAG_Compound);
+        $this->getLevel()->setBlock($block, $this, true, true);
+        $nbt = new CompoundTag("", [
+            new ListTag("Items", []),
+            new StringTag("id", Tile::DISPENSER),
+            new IntTag("x", $this->x),
+            new IntTag("y", $this->y),
+            new IntTag("z", $this->z)
+        ]);
+        $nbt->Items->setTagType(NBT::TAG_Compound);
 
-		if($item->hasCustomName()){
-			$nbt->CustomName = new StringTag("CustomName", $item->getCustomName());
-		}
+        if ($item->hasCustomName()) {
+            $nbt->CustomName = new StringTag("CustomName", $item->getCustomName());
+        }
 
-		if($item->hasCustomBlockData()){
-			foreach($item->getCustomBlockData() as $key => $v){
-				$nbt->{$key} = $v;
-			}
-		}
+        if ($item->hasCustomBlockData()) {
+            foreach ($item->getCustomBlockData() as $key => $v) {
+                $nbt->{$key} = $v;
+            }
+        }
 
-		Tile::createTile(Tile::DISPENSER, $this->getLevel(), $nbt);
+        Tile::createTile(Tile::DISPENSER, $this->getLevel(), $nbt);
 
-		return true;
-	}
+        return true;
+    }
 
-	public function activate(){
-		$tile = $this->getLevel()->getTile($this);
-		if($tile instanceof TileDispenser){
-			$tile->activate();
-		}
-	}
+    public function activate()
+    {
+        $tile = $this->getLevel()->getTile($this);
+        if ($tile instanceof TileDispenser) {
+            $tile->activate();
+        }
+    }
 
-	public function onActivate(Item $item, Player $player = null){
-		if($player instanceof Player){
-			$t = $this->getLevel()->getTile($this);
-			$dispenser = null;
-			if($t instanceof TileDispenser){
-				$dispenser = $t;
-			}else{
-				$nbt = new CompoundTag("", [
-					new ListTag("Items", []),
-					new StringTag("id", Tile::DISPENSER),
-					new IntTag("x", $this->x),
-					new IntTag("y", $this->y),
-					new IntTag("z", $this->z)
-				]);
-				$nbt->Items->setTagType(NBT::TAG_Compound);
-				$dispenser = Tile::createTile(Tile::DISPENSER, $this->getLevel(), $nbt);
-			}
+    public function onActivate(Item $item, Player $player = null)
+    {
+        if ($player instanceof Player) {
+            $t = $this->getLevel()->getTile($this);
+            $dispenser = null;
+            if ($t instanceof TileDispenser) {
+                $dispenser = $t;
+            } else {
+                $nbt = new CompoundTag("", [
+                    new ListTag("Items", []),
+                    new StringTag("id", Tile::DISPENSER),
+                    new IntTag("x", $this->x),
+                    new IntTag("y", $this->y),
+                    new IntTag("z", $this->z)
+                ]);
+                $nbt->Items->setTagType(NBT::TAG_Compound);
+                $dispenser = Tile::createTile(Tile::DISPENSER, $this->getLevel(), $nbt);
+            }
 
-			if($player->isCreative() and $player->getServer()->limitedCreative){
-				return true;
-			}
+            if ($player->isCreative() and $player->getServer()->limitedCreative) {
+                return true;
+            }
 
-			$player->addWindow($dispenser->getInventory());
-		}
+            $player->addWindow($dispenser->getInventory());
+        }
 
-		return true;
-	}
+        return true;
+    }
 
-	public function getDrops(Item $item) : array {
-		return [
-			[$this->id, 0, 1],
-		];
-	}
+    public function getDrops(Item $item): array
+    {
+        return [
+            [$this->id, 0, 1],
+        ];
+    }
 }

@@ -27,36 +27,40 @@ use pocketmine\Player;
 /**
  * Called when a player does an animation
  */
-class PlayerAnimationEvent extends PlayerEvent implements Cancellable{
+class PlayerAnimationEvent extends PlayerEvent implements Cancellable
+{
 
-	public static $handlerList = null;
+    public static $handlerList = null;
 
-	const ARM_SWING = 1;
-	const WAKE_UP = 3;
+    const ARM_SWING = 1;
+    const WAKE_UP = 3;
 
-	private $animationType;
+    private $animationType;
 
-	/**
-	 * @param Player $player
-	 * @param int    $animation
-	 */
-	public function __construct(Player $player, $animation = self::ARM_SWING){
-		$this->player = $player;
-		$this->animationType = $animation;
-	}
-
-	/**
-	 * @return int
-	 */
-	public function getAnimationType(){
-		return $this->animationType;
-	}
-
-	/**
-	 * @return EventName|string
+    /**
+     * @param Player $player
+     * @param int $animation
      */
-	public function getName(){
-		return "PlayerAnimationEvent";
-	}
+    public function __construct(Player $player, $animation = self::ARM_SWING)
+    {
+        $this->player = $player;
+        $this->animationType = $animation;
+    }
+
+    /**
+     * @return int
+     */
+    public function getAnimationType()
+    {
+        return $this->animationType;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return "PlayerAnimationEvent";
+    }
 
 }

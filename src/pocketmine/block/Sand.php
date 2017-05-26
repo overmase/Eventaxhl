@@ -24,31 +24,36 @@ namespace pocketmine\block;
 
 use pocketmine\item\Tool;
 
-class Sand extends Fallable{
-	
-	const NORMAL = 0;
-	const RED = 1;
-	
-	protected $id = self::SAND;
+class Sand extends Fallable
+{
 
-	public function __construct($meta = 0){
-		$this->meta = $meta;
-	}
+    const NORMAL = 0;
+    const RED = 1;
 
-	public function getHardness() {
-		return 0.5;
-	}
+    protected $id = self::SAND;
 
-	public function getToolType(){
-		return Tool::TYPE_SHOVEL;
-	}
+    public function __construct($meta = 0)
+    {
+        $this->meta = $meta;
+    }
 
-	public function getName() : string{
-		if($this->meta === 0x01){
-			return "Red Sand";
-		}
+    public function getHardness()
+    {
+        return 0.5;
+    }
 
-		return "Sand";
-	}
+    public function getToolType()
+    {
+        return Tool::TYPE_SHOVEL;
+    }
+
+    public function getName(): string
+    {
+        if ($this->meta === 0x01) {
+            return "Red Sand";
+        }
+
+        return "Sand";
+    }
 
 }

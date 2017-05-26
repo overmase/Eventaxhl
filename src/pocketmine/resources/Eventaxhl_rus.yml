@@ -104,6 +104,9 @@ server:
  #Эта настройка решает, включен ли расширенный выбор команд
  #Если вы не знаете, что он делает, установите "false"
  advanced-command-selector: false
+ rcon:
+   write-rcon-log: true
+   file: "rcon.log"
 
 enchantment:
  #Этот параметр решает, разрешено ли использование наковальни в игре

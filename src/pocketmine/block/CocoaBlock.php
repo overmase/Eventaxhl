@@ -27,31 +27,38 @@ use pocketmine\level\Level;
 use pocketmine\Player;
 use pocketmine\Server;
 
-class CocoaBlock extends Solid {
+class CocoaBlock extends Solid
+{
 
     protected $id = self::COCOA_BLOCK;
 
-    public function __construct($meta = 0) {
+    public function __construct($meta = 0)
+    {
         $this->meta = $meta;
     }
 
-    public function getName() : string {
+    public function getName(): string
+    {
         return "Cocoa Block";
     }
 
-    public function getHardness() {
+    public function getHardness()
+    {
         return 0.2;
     }
 
-    public function getResistance() {
+    public function getResistance()
+    {
         return 15;
     }
 
-    public function canBeActivated() : bool {
+    public function canBeActivated(): bool
+    {
         return true;
     }
 
-    public function onActivate(Item $item, Player $player = null) {
+    public function onActivate(Item $item, Player $player = null)
+    {
         if ($item->getId() === Item::DYE and $item->getDamage() === 0x0F) {
             $block = clone $this;
             if ($block->meta > 7) {
@@ -68,7 +75,8 @@ class CocoaBlock extends Solid {
         return false;
     }
 
-    public function onUpdate($type) {
+    public function onUpdate($type)
+    {
         if ($type === Level::BLOCK_UPDATE_NORMAL) {
             $faces = [3, 4, 2, 5, 3, 4, 2, 5, 3, 4, 2, 5];
             if ($this->getSide($faces[$this->meta])->isTransparent() === true) {
@@ -94,7 +102,8 @@ class CocoaBlock extends Solid {
         return false;
     }
 
-    public function place(Item $item, Block $block, Block $target, $face, $fx, $fy, $fz, Player $player = null) {
+    public function place(Item $item, Block $block, Block $target, $face, $fx, $fy, $fz, Player $player = null)
+    {
         if ($target->getId() === Block::WOOD and $target->getDamage() === 3) {
             if ($face !== 0 and $face !== 1) {
                 $faces = [
@@ -111,7 +120,8 @@ class CocoaBlock extends Solid {
         return false;
     }
 
-    public function getDrops(Item $item) : array {
+    public function getDrops(Item $item): array
+    {
         $drops = [];
         if ($this->meta >= 8) {
             $drops[] = [Item::DYE, 3, 3];

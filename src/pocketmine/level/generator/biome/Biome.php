@@ -55,7 +55,7 @@ abstract class Biome
     const SWAMP = 6;
     const RIVER = 7;
     const HELL = 8;
-    const END = 9;
+    const ENDER = 9;
     const FROZEN_OCEAN = 10;
     const FROZEN_RIVER = 11;
     const ICE_PLAINS = 12;
@@ -81,7 +81,6 @@ abstract class Biome
     const MESA = 37;
     const MESA_PLATEAU_F = 38;
     const MESA_PLATEAU = 39;
-    const ENDER = 50;
     const VOID = 127;
 
     const MAX_BIOMES = 256;
@@ -143,8 +142,9 @@ abstract class Biome
         self::register(self::HELL, new HellBiome());
 
         self::register(self::BIRCH_FOREST, new ForestBiome(ForestBiome::TYPE_BIRCH));
-        self::register(self::ENDER, new EnderBiome());
 
+        //added on Eventaxhl:
+        self::register(self::ENDER, new EnderBiome());
         self::register(self::SAVANNA, new SavannaBiome());
     }
 

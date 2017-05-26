@@ -21,11 +21,13 @@
 
 namespace pocketmine\block;
 
-class Furnace extends BurningFurnace{
+class Furnace extends BurningFurnace
+{
 
-	protected $id = self::FURNACE;
+    protected $id = self::FURNACE;
 
-	public function getName() : string{
-		return "Furnace";
-	}
+    public function getName(): string
+    {
+        return "Furnace";
+    }
 }

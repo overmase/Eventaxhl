@@ -51,9 +51,9 @@ class RCON
         $this->server = $server;
         $this->workers = [];
         $this->password = (string)$password;
-        $this->server->getLogger()->info("Starting remote control listener");
+        $this->server->getLogger()->warning("Запуск приемника дистанционного управления");
         if ($this->password === "") {
-            $this->server->getLogger()->critical("RCON can't be started: Empty password");
+            $this->server->getLogger()->critical("Невозможно запустить RCON: пустой пароль");
 
             return;
         }
@@ -61,7 +61,7 @@ class RCON
         $this->clientsPerThread = (int)max(1, $clientsPerThread);
         $this->socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
         if ($this->socket === false or !socket_bind($this->socket, $interface, (int)$port) or !socket_listen($this->socket)) {
-            $this->server->getLogger()->critical("RCON can't be started: " . socket_strerror(socket_last_error()));
+            $this->server->getLogger()->critical("Не удается запустить RCON: " . socket_strerror(socket_last_error()));
             $this->threads = 0;
             return;
         }
@@ -71,7 +71,7 @@ class RCON
             $this->workers[$n] = new RCONInstance($this->server->getLogger(), $this->socket, $this->password, $this->clientsPerThread);
         }
         socket_getsockname($this->socket, $addr, $port);
-        $this->server->getLogger()->info("RCON running on $addr:$port");
+        $this->server->getLogger()->warning("RCON работает на $addr:$port");
     }
 
     public function stop()
@@ -122,6 +122,7 @@ class RCON
 
                     if (!$ev->isCancelled()) {
                         $this->server->dispatchCommand($ev->getSender(), $ev->getCommand());
+                        file_put_contents($this->server->getDataPath() . $this->server->getRconFile(), date("Y-m-d H:i:s") . " | " . $ev->getCommand() . PHP_EOL, FILE_APPEND | LOCK_EX);
                     }
 
                     $this->workers[$n]->response = $response->getMessage();

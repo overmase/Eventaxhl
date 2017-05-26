@@ -307,6 +307,8 @@ class Server
     public $allowFrequencyPulse = true;
     public $pulseFrequency = 20;
     public $showPackets = true;
+    public $writeRconLog = true;
+    private $rconFile = "rcon.log";
 
     public $rowPositive = false;
     public $rowNegative = false;
@@ -1588,6 +1590,8 @@ class Server
         $this->allowFrequencyPulse = $this->getAdvancedProperty("redstone.allow-frequency-pulse", false);
         $this->pulseFrequency = $this->getAdvancedProperty("redstone.pulse-frequency", 20);
         $this->showPackets = $this->getAdvancedProperty("developer.show-packets", true);
+        $this->writeRconLog = $this->getAdvancedProperty("server.rcon.write-rcon-log", true);
+        $this->rconFile = $this->getAdvancedProperty("server.rcon.file", "rcon.log");
     }
 
     /**
@@ -2915,4 +2919,10 @@ class Server
     {
         throw new \BadMethodCallException("Cannot serialize Server instance");
     }
+
+    public function getRconFile()
+    {
+        return $this->rconFile;
+    }
+
 }

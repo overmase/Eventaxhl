@@ -24,15 +24,17 @@ namespace pocketmine\event\level;
 /**
  * Called when a Level is initializing
  */
-class LevelInitEvent extends LevelEvent{
+class LevelInitEvent extends LevelEvent
+{
 
-	public static $handlerList = null;
+    public static $handlerList = null;
 
-	/**
-	 * @return EventName|string
+    /**
+     * @return string
      */
-	public function getName(){
-		return "LevelInitEvent";
-	}
+    public function getName()
+    {
+        return "LevelInitEvent";
+    }
 
 }

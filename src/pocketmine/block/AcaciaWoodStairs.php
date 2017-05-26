@@ -21,11 +21,13 @@
 
 namespace pocketmine\block;
 
-class AcaciaWoodStairs extends WoodStairs{
+class AcaciaWoodStairs extends WoodStairs
+{
 
-	protected $id = self::ACACIA_WOOD_STAIRS;
+    protected $id = self::ACACIA_WOOD_STAIRS;
 
-	public function getName() : string{
-		return "Acacia Wood Stairs";
-	}
+    public function getName(): string
+    {
+        return "Acacia Wood Stairs";
+    }
 }

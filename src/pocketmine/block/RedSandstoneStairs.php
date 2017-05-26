@@ -18,14 +18,16 @@
  * @link https://itxtech.org
  *
  */
- 
+
 namespace pocketmine\block;
 
-class RedSandstoneStairs extends SandstoneStairs{
+class RedSandstoneStairs extends SandstoneStairs
+{
 
-	protected $id = Block::RED_SANDSTONE_STAIRS;
+    protected $id = Block::RED_SANDSTONE_STAIRS;
 
-	public function getName() : string{
-		return "Red Sandstone Stairs";
-	}
+    public function getName(): string
+    {
+        return "Red Sandstone Stairs";
+    }
 }
