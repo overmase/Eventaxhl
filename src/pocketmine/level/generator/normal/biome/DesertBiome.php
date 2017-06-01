@@ -25,6 +25,8 @@ use pocketmine\block\Block;
 use pocketmine\level\generator\normal\populator\Cactus;
 use pocketmine\level\generator\normal\populator\DeadBush;
 use pocketmine\level\generator\normal\populator\SugarCane;
+use pocketmine\level\generator\normal\populator\Temple;
+use pocketmine\level\generator\normal\populator\Well;
 
 class DesertBiome extends SandyBiome
 {
@@ -39,17 +41,22 @@ class DesertBiome extends SandyBiome
         $sugarCane = new SugarCane();
         $sugarCane->setRandomAmount(20);
         $sugarCane->setBaseAmount(3);
-
+        //TODO: fix this
         $sugarCane = new Cactus();
         $sugarCane->setRandomAmount(2);
         $sugarCane->setBaseAmount(3);
 
+        $temple = new Temple();
+        $well = new Well();
+
+        $this->addPopulator($well);
+        $this->addPopulator($temple);
         $this->addPopulator($deadBush);
         $this->addPopulator($sugarCane);
 
-        $this->setElevation(63, 74);
+        $this->setElevation(63, 71);
 
-        $this->temperature = 2;
+        $this->temperature = 0.5;
         $this->rainfall = 0;
         $this->setGroundCover([
             Block::get(Block::SAND, 0),
