@@ -1,4 +1,7 @@
 # Eventaxhl
+Проект заморожен из-за проблем с обновлением на 1.1
+========================
+
 ![alt text](http://vipmcpe.ru/dl/Eventaxhl_new.jpg)
 Eventaxhl - программное обеспечение для серверов Minecraft Pocket Edition, Eventaxhl - «смесь» Tesseract & PocketMine.
 ### Особенности Eventaxhl
